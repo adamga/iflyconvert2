@@ -1,0 +1,136 @@
+Battery_Switch_Status   1 off 2 on
+
+CAB_UTIL_Switch_Status	1 off 2 on
+
+IFE_PASS_SEAT_Switch_Status	1 off 2 on
+
+AC_Meters_Selector_Status		1-6
+
+DC_Meters_Selector_Status		1-7
+
+Yaw_Damper_Switch_Status	0 off 1 on
+
+VHF_NAV_Switch_Status		0-2
+
+IRS_Switch_Status		0-2
+
+FMC_Switch_Status		0-2
+
+Fuel_Crossfeed_Selector_Status		0-1
+
+Fuel_CENTER_R_Switch_Status			0-1	
+
+Fuel_CENTER_L_Switch_Status			0-1
+
+Fuel_L_AFT_Switch_Status			0-1	
+
+Fuel_R_FWD_Switch_Status			0-1	
+
+Fuel_L_FWD_Switch_Status			0-1	
+
+Fuel_R_AFT_Switch_Status			0-1
+
+Ground_Power_Switch_Status			1	
+
+ENG_Generator_Switch_Status:0			1	
+APU_Generator_Switch_Status:0			1	
+APU_Generator_Switch_Status:1			1	
+ENG_Generator_Switch_Status:1			1	
+
+Wiper_L_Switch_Status		0-3
+Wiper_R_Switch_Status			0-3
+No_Smoking_Switch_Status			0-2
+Fasten_Belts_Switch_Status			0-2
+	
+
+Attendant_Call_Switch_Status			0
+Ground_Call_Switch_Status			0
+	
+Emergency_Light_Switch_Status			3	
+
+Equipment_COOLING_SUPPLY_Switch_Status			1	
+	
+Equipment_COOLING_EXHAUST_Switch_Status			1	
+
+Window_Heat_Test_Switch_Status			1	
+
+Probe_Heat_Switch_1_Status			0	
+Probe_Heat_Switch_2_Status			0	
+Window_Heat_Switch_1_Status			0	
+Window_Heat_Switch_2_Status			0	
+Window_Heat_Switch_3_Status			0	
+Window_Heat_Switch_4_Status		0	
+Wing_AntiIce_Switch_Status			0	
+Eng_1_AntiIce_Switch_Status			0	
+Eng_2_AntiIce_Switch_Status			0
+
+ENG_1_HYD_Switch_Status			1	
+ELEC_1_HYD_Switch_Status			0	
+ENG_2_HYD_Switch_Status			1	
+ELEC_2_HYD_Switch_Status			0
+
+Isolation_Valve_Switch_Status			0	
+Pack_Switch_Status:0			0	
+Pack_Switch_Status:1			0	
+Engine_Bleed_Air_Switch_Status:0			1	
+Engine_Bleed_Air_Switch_Status:1			1
+RecircFan_Switch_Status:0			1	
+RecircFan_Switch_Status:1			1	
+APU_Bleed_Air_Switch_Status			0
+
+Engine_Start_Switch_Status:0			1	
+Engine_Start_Switch_Status:1			0	
+	
+ENGINE_CONTROL_Light_Status:0			0	
+Position_Light_Switch_Status			2	
+APU_Switch_Status			0	
+Landing_Light_1_Switch_Status			0	
+Landing_Light_2_Switch_Status			1	
+Ignition_Select_Switch_Status			1	
+Wing_Light_Switch_Status			0	
+Anti_Collision_Light_Switch_Status			0	
+Logo_Light_Switch_Status			1	
+Wheel_Well_Light_Switch_Status			1	
+Taxi_Light_Switch_Status			0	
+Runway_Turnoff_Light_1_Switch_Status			0	
+Runway_Turnoff_Light_2_Switch_Status			0	
+
+IRS_Mode_Switch_Status:0			0	
+IRS_Mode_Switch_Status:1			0	
+
+
+	
+
+
+
+	
+
+	
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+
+	
+
+
+	
