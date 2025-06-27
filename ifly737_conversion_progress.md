@@ -145,6 +145,49 @@ All overhead panel instruments have been successfully converted from PMDG 737 to
 
 ---
 
+## 2. Anti-Ice Conversion ✅ COMPLETED
+
+### Controls Found:
+1. **Wing Anti-Ice Switch** (2-position: OFF/ON)
+   - **Original**: `L:switch_156_73X` with PMDG events 15601/15602
+   - **iFly**: `L:VC_Wing_AntiIce_SW_VAL` (0=OFF, 10=ON)
+   - **Status**: ✅ CONVERTED
+
+2. **Engine 1 Anti-Ice Switch** (2-position: OFF/ON)
+   - **Original**: `L:switch_157_73X` with PMDG events 15701/15702
+   - **iFly**: `L:VC_Engine_1_AntiIce_SW_VAL` (0=OFF, 10=ON)
+   - **Status**: ✅ CONVERTED
+
+3. **Engine 2 Anti-Ice Switch** (2-position: OFF/ON)
+   - **Original**: `L:switch_158_73X` with PMDG events 15801/15802
+   - **iFly**: `L:VC_Engine_2_AntiIce_SW_VAL` (0=OFF, 10=ON)
+   - **Status**: ✅ CONVERTED
+
+### Warning Lights Found:
+1. **Cowl Anti-Ice 1 (Amber)**: `L:VC_ANTIICE_LIGHT_COWL_ANTI_ICE_1_VAL`
+2. **Cowl Anti-Ice 2 (Amber)**: `L:VC_ANTIICE_LIGHT_COWL_ANTI_ICE_2_VAL`
+3. **L Valve Open (Blue)**: `L:VC_ANTIICE_LIGHT_L_ALPHA_VANE_VAL`
+4. **R Valve Open (Blue)**: `L:VC_ANTIICE_LIGHT_R_ALPHA_VANE_VAL`
+5. **Cowl Valve 1 Open (Blue)**: `L:VC_ANTIICE_LIGHT_COWL_VALVE_1_VAL`
+6. **Cowl Valve 2 Open (Blue)**: `L:VC_ANTIICE_LIGHT_COWL_VALVE_2_VAL`
+
+### Conversion Details:
+- All 3 anti-ice switches converted from PMDG events to iFly variable writes
+- Switch position logic updated to use iFly value mapping (0/10 instead of 0/50/100)
+- Warning lights updated to use iFly ANTIICE_LIGHT variables
+- Switch callback functions implemented with proper iFly variable control
+- Position feedback subscriptions updated to iFly variables
+- All original PMDG code preserved as comments
+
+### Value Mappings:
+- **OFF Position**: iFly value 0 → Switch position 1
+- **ON Position**: iFly value 10 → Switch position 3
+- **Switch Logic**: Two-position switches with proper toggle behavior
+
+### Original code preserved as comments above each conversion.
+
+---
+
 ## 3. APU and Engine Start Switch Conversion ✅ COMPLETED
 
 ### Controls Found:
@@ -171,52 +214,57 @@ All overhead panel instruments have been successfully converted from PMDG 737 to
 ## 4. Bleed Switches Panel Conversion ✅ COMPLETED
 
 ### Controls Found:
-1. **Recirc Fan Switch** (2-position: ON/OFF)
+1. **Left Recirc Fan Switch** (2-position: ON/OFF)
    - **Original**: `L:switch_196_73X` with PMDG events 19601/19602
-   - **iFly**: `L:VC_AIRSYSTEM_RECIRC_FAN_SW_VAL` (0/20)
+   - **iFly**: `L:VC_RecircFan_L_SW_VAL` (0/20)
    - **Status**: ✅ CONVERTED
 
-2. **Pack 1 Switch** (3-position: OFF/AUTO/HIGH)
+2. **Right Recirc Fan Switch** (2-position: ON/OFF)
+   - **Original**: Single recirc fan switch 
+   - **iFly**: `L:VC_RecircFan_R_SW_VAL` (0/20)
+   - **Status**: ✅ CONVERTED
+
+3. **Pack 1 Switch** (3-position: OFF/AUTO/HIGH)
    - **Original**: `L:switch_200_73X` with PMDG events 20001/20002
    - **iFly**: `L:VC_PACK_1_SW_VAL` (0,10,20)
    - **Status**: ✅ CONVERTED
 
-3. **Pack 2 Switch** (3-position: OFF/AUTO/HIGH)
+4. **Pack 2 Switch** (3-position: OFF/AUTO/HIGH)
    - **Original**: `L:switch_201_73X` with PMDG events 20101/20102
    - **iFly**: `L:VC_PACK_2_SW_VAL` (0,10,20)
    - **Status**: ✅ CONVERTED
 
-4. **Isolation Valve Switch** (3-position: CLOSE/AUTO/OPEN)
+5. **Isolation Valve Switch** (3-position: CLOSE/AUTO/OPEN)
    - **Original**: `L:switch_202_73X` with PMDG events 20201/20202
    - **iFly**: `L:VC_ISOLATION_VALVE_SW_VAL` (0,10,20)
    - **Status**: ✅ CONVERTED
 
-5. **Engine 1 Bleed Switch** (2-position: OFF/ON)
+6. **Engine 1 Bleed Switch** (2-position: OFF/ON)
    - **Original**: `L:switch_210_73X` with PMDG events 21001/21002
    - **iFly**: `L:VC_Engine_1_Bleed_Air_SW_VAL` (0/10)
    - **Status**: ✅ CONVERTED
 
-6. **APU Bleed Switch** (2-position: OFF/ON)
+7. **APU Bleed Switch** (2-position: OFF/ON)
    - **Original**: `L:switch_211_73X` with PMDG events 21101/21102
    - **iFly**: `L:VC_APU_Bleed_Air_SW_VAL` (0/10)
    - **Status**: ✅ CONVERTED
 
-7. **Engine 2 Bleed Switch** (2-position: OFF/ON)
+8. **Engine 2 Bleed Switch** (2-position: OFF/ON)
    - **Original**: `L:switch_212_73X` with PMDG events 21201/21202
    - **iFly**: `L:VC_Engine_2_Bleed_Air_SW_VAL` (0/10)
    - **Status**: ✅ CONVERTED
 
-8. **Duct Pressure Gauges**
+9. **Duct Pressure Gauges**
    - **Original**: `L:switch_197_73X` and `L:switch_198_73X`
    - **iFly**: `L:VC_AIRSYSTEM_DUCT_PRESSURE_L_VAL` and `L:VC_AIRSYSTEM_DUCT_PRESSURE_R_VAL`
    - **Status**: ✅ CONVERTED
 
-9. **Test Buttons**
+10. **Test Buttons**
    - **Overheat Test**: `L:VC_AIRSYSTEM_OVHT_TEST_SW_VAL`
    - **Trip Reset**: `L:VC_AIRSYSTEM_TRIP_RESET_SW_VAL`
    - **Status**: ✅ CONVERTED
 
-10. **Warning Lights** (All converted to iFly variables)
+11. **Warning Lights** (All converted to iFly variables)
     - **DUAL BLEED**: `L:VC_AIRSYSTEM_LIGHT_DUAL_BLEED_LIGHT_VAL`
     - **RAM DOOR FULL OPEN**: `L:VC_RAM_DOOR_FULL_OPEN_L_LIGHT_VAL` / `L:VC_RAM_DOOR_FULL_OPEN_R_LIGHT_VAL`
     - **PACK TRIP OFF**: `L:VC_PACK_1_TRIP_OFF_LIGHT_VAL` / `L:VC_PACK_2_TRIP_OFF_LIGHT_VAL`
@@ -227,6 +275,54 @@ All overhead panel instruments have been successfully converted from PMDG 737 to
     - **ALTN**: `L:VC_CABIN_ALTITUDE_ALTN_LIGHT_VAL`
     - **MANUAL**: `L:VC_CABIN_ALTITUDE_MANUAL_LIGHT_VAL`
     - **Status**: ✅ CONVERTED
+
+### 🔧 **CRITICAL FIX APPLIED - June 27, 2025**
+**Issue**: 3-position switches (Pack 1, Pack 2, Isolation Valve) were skipping the middle AUTO position, jumping directly from OFF to HIGH.
+
+**Root Cause**: The original callback logic was using simple increment/decrement without proper state management for 3-position switches.
+
+**Solution Applied**:
+1. **Added position state variables** for each 3-position switch to track current position
+2. **Implemented proper state transition logic**:
+   - UP direction: OFF→AUTO→HIGH (with bounds checking)
+   - DOWN direction: HIGH→AUTO→OFF (with bounds checking)
+3. **Fixed position feedback** to properly map iFly values to switch positions:
+   - Value 0 → Position 1 (bottom/OFF)
+   - Value 10 → Position 2 (middle/AUTO) 
+   - Value 20 → Position 3 (top/HIGH)
+
+**Files Modified**:
+- Pack 1 Switch: Added `currentLPackPosition` state variable
+- Pack 2 Switch: Added `currentRPackPosition` state variable  
+- Isolation Valve: Added `currentIsolationValvePosition` state variable
+
+**Result**: All 3-position switches now properly cycle through ALL positions instead of skipping the middle AUTO state.
+
+### 🔧 **LAYOUT UPDATE APPLIED - June 27, 2025**
+**Enhancement**: Updated panel layout to support both left and right recirc fan switches as found in real aircraft.
+
+**Changes Made**:
+1. **Separated Recirc Fan Controls**:
+   - Split single recirc fan switch into separate left and right switches
+   - Left switch: x=100, using `L:VC_RecircFan_L_SW_VAL`
+   - Right switch: x=300, using `L:VC_RecircFan_R_SW_VAL`
+
+2. **Centered Duct Gauge**:
+   - Moved duct pressure gauge components from x=125/126 to x=199/200
+   - Now properly centered between left and right recirc fan switches
+
+3. **Updated Text Labels**:
+   - Changed single "RECIRC FAN" label to "L RECIRC FAN" and "R RECIRC FAN"
+   - Positioned labels appropriately above each switch
+
+**Files Modified**:
+- Updated switch creation, callback functions, variable subscriptions
+- Moved duct gauge needles and base to center position
+- Updated text rendering function with new labels and positions
+
+**Result**: Panel now has proper left/right recirc fan switches with centered duct gauge, matching real aircraft layout.
+
+---
 
 ## 5. Cabin Altitude Panel Conversion ✅ COMPLETED
 
@@ -480,7 +576,7 @@ All overhead panel instruments have been successfully converted from PMDG 737 to
 
 ---
 
-## 11. Fuel Pumps Switches Panel Conversion ⏳ IN PROGRESS
+## 11. Fuel Pumps Switches Panel Conversion ✅ COMPLETED
 
 ### Fuel Pump Switches Found:
 1. **Left Aft Fuel Pump Switch** (3-position: OFF/AUTO/ON)
@@ -545,11 +641,41 @@ All overhead panel instruments have been successfully converted from PMDG 737 to
     - PMDG Variables: `L:switch_47_73X` (CTR L), `L:switch_48_73X` (CTR R), `L:switch_41_73X` (AFT 1), `L:switch_42_73X` (FWD 1), `L:switch_43_73X` (FWD 2), `L:switch_44_73X` (AFT 2)
     - iFly Variables: `L:VC_FUEL_LIGHT_CTR_L_LOW_PRESSURE_LIGHT_VAL`, `L:VC_FUEL_LIGHT_CTR_R_LOW_PRESSURE_LIGHT_VAL`, `L:VC_FUEL_LIGHT_AFT_1_LOW_PRESSURE_LIGHT_VAL`, `L:VC_FUEL_LIGHT_FWD_1_LOW_PRESSURE_LIGHT_VAL`, `L:VC_FUEL_LIGHT_FWD_2_LOW_PRESSURE_LIGHT_VAL`, `L:VC_FUEL_LIGHT_AFT_2_LOW_PRESSURE_LIGHT_VAL` ✅
 
-### Conversion Plan:
-- Replace all `msfs_event("ROTOR_BRAKE", ...)` calls with `fs2020_variable_write()` calls
-- Update variable subscriptions to use iFly variables with `fs2020_variable_subscribe()`
-- Convert PMDG values to iFly 0/10/20 increments for 3-position switches
-- Implement position tracking for each switch to handle increment/decrement properly
+### 🔧 **CROSSFEED DIAL FIX APPLIED - June 27, 2025**
+**Issue**: The crossfeed dial was sending correct commands to the aircraft but not visually rotating in the Air Manager instrument.
+
+**Root Cause**: The dial's visual feedback was still subscribing to the old PMDG variable `L:switch_49_73X` instead of the new iFly variable `L:VC_Fuel_Crossfeed_SW_VAL`. Additionally, the visual logic was using PMDG value mapping (0/100) instead of iFly value mapping (0/10).
+
+**Solution Applied**:
+1. **Updated variable subscription**: Changed from `L:switch_49_73X` to `L:VC_Fuel_Crossfeed_SW_VAL`
+2. **Fixed value mapping**: Updated logic to use iFly values (0=CLOSED, 10=OPEN) instead of PMDG values (0=CLOSED, 100=OPEN)
+3. **Updated visual feedback functions**:
+   - Modified `DrawCrossfeedLine()` to check for value 10 instead of 100
+   - Updated dial rotation logic to use correct iFly values
+4. **Synchronized position tracking**: Ensured `currentCrossfeedPosition` variable stays in sync with actual iFly variable
+
+**Files Modified**:
+- Updated `msfs_variable_subscribe` call to use iFly variable
+- Fixed `DrawCrossfeedLine()` function value comparison
+- Updated dial rotation logic in subscription callback
+- Added proper position tracking for button callback
+
+**Result**: Crossfeed dial now properly rotates in Air Manager when the valve position changes, matching the actual aircraft state.
+
+### 🔧 **CROSSFEED DIAL ROTATION FIX APPLIED - June 27, 2025**
+**Issue**: The crossfeed dial was rotating in the wrong direction - horizontal when it should be vertical and vice versa.
+
+**Root Cause**: The rotation angles were inverted in the subscription callback function.
+
+**Solution Applied**:
+- **OPEN position (value 10)**: Changed rotation from 0° to 90° (now correctly vertical)
+- **CLOSED position (value 0)**: Changed rotation from 90° to 0° (now correctly horizontal)
+
+**Logic Correction**:
+- OPEN = Vertical flow = 90° rotation
+- CLOSED = Horizontal flow = 0° rotation
+
+**Result**: Crossfeed dial now rotates to the correct orientation matching the valve state.
 
 ### Status: ✅ CONVERSION COMPLETED
 

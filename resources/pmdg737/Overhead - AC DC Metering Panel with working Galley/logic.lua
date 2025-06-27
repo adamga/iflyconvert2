@@ -288,7 +288,7 @@ local gImgDcSourcePointer = canvas_add(69, 321, 70, 70, DrawPointer)
 --     fs2020_event("ROTOR_BRAKE", 308)
 --   end
 -- end)
--- fs2020_variable_subscribe("L:switch_03_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_03_73X", "number", function(v)
 
 -- iFly Conversion:
 local gDcMeterCurrentPosition = 0
@@ -298,10 +298,10 @@ dial_add(nil, 69, 321, 70, 70, function(v)
   else
     gDcMeterCurrentPosition = math.max(gDcMeterCurrentPosition - 10, 0) -- Min position 0
   end
-  fs2020_variable_write("L:VC_DC_Meters_Selector_SW_VAL", "number", gDcMeterCurrentPosition)
+  msfs_variable_write("L:VC_DC_Meters_Selector_SW_VAL", "number", gDcMeterCurrentPosition)
 end)
 
-fs2020_variable_subscribe("L:VC_DC_Meters_Selector_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_DC_Meters_Selector_SW_VAL", "number", function(v)
   gDcMeterCurrentPosition = v
   local angle = v/10*45-135
   rotate(gImgDcSourceKnob, angle)
@@ -327,14 +327,14 @@ dial_add(nil, 264, 321, 70, 70, function(v)
   else
     gAcMeterCurrentPosition = math.max(gAcMeterCurrentPosition - 10, 0) -- Min position 0
   end
-  fs2020_variable_write("L:VC_AC_Meters_Selector_SW_VAL", "number", gAcMeterCurrentPosition)
+  msfs_variable_write("L:VC_AC_Meters_Selector_SW_VAL", "number", gAcMeterCurrentPosition)
 end)
 
 -- ORIGINAL PMDG CODE:
--- fs2020_variable_subscribe("L:switch_04_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_04_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_AC_Meters_Selector_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_AC_Meters_Selector_SW_VAL", "number", function(v)
   gAcMeterCurrentPosition = v
   local angle = v/10*45-135
   rotate(gImgAcSourceKnob, angle)
@@ -548,7 +548,7 @@ function cbSwitchBattery(switch, dir)
     -- fs2020_event("ROTOR_BRAKE", 201) -- open cover with any button
     
     -- iFly Conversion:
-    fs2020_variable_write("L:VC_Battery_SW_Cover_VAL", "number", 10) -- open guard
+    msfs_variable_write("L:VC_Battery_SW_Cover_VAL", "number", 10) -- open guard
     return
   end
   -- ORIGINAL PMDG CODE:
@@ -556,17 +556,17 @@ function cbSwitchBattery(switch, dir)
   
   -- iFly Conversion:
   if dir > 0 then
-    fs2020_variable_write("L:VC_Battery_SW_VAL", "number", 10) -- ON
+    msfs_variable_write("L:VC_Battery_SW_VAL", "number", 10) -- ON
   else
-    fs2020_variable_write("L:VC_Battery_SW_VAL", "number", 0) -- OFF
+    msfs_variable_write("L:VC_Battery_SW_VAL", "number", 0) -- OFF
   end
 end
 
 -- ORIGINAL PMDG CODE:
--- fs2020_variable_subscribe("L:switch_01_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_01_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_Battery_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Battery_SW_VAL", "number", function(v)
   SetSwitchPosition(gSwitchBattery, math.floor(v/10)+1)
 end)
 
@@ -577,7 +577,7 @@ function cbGuardBattery(switch, dir)
     -- fs2020_event("ROTOR_BRAKE", 101) -- incr switch with cover open button
     
     -- iFly Conversion:
-    fs2020_variable_write("L:VC_Battery_SW_VAL", "number", 10) -- Set to ON
+    msfs_variable_write("L:VC_Battery_SW_VAL", "number", 10) -- Set to ON
     return
   end
   -- ORIGINAL PMDG CODE:
@@ -589,19 +589,19 @@ function cbGuardBattery(switch, dir)
   
   -- iFly Conversion:
   if dir > 0 then
-    fs2020_variable_write("L:VC_Battery_SW_Cover_VAL", "number", 10) -- open guard
+    msfs_variable_write("L:VC_Battery_SW_Cover_VAL", "number", 10) -- open guard
   else
-    fs2020_variable_write("L:VC_Battery_SW_Cover_VAL", "number", 0) -- close guard
+    msfs_variable_write("L:VC_Battery_SW_Cover_VAL", "number", 0) -- close guard
   end
 end
 
 gSwitchBattery = AddBlackVerGuardSwitch(77, 402, false, true, true, cbSwitchBattery, cbGuardBattery)
 
 -- ORIGINAL PMDG CODE:
--- fs2020_variable_subscribe("L:switch_02_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_02_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_Battery_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Battery_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchBattery, v==0)
 end)
 
@@ -617,17 +617,17 @@ function cbSwitchGalley(switch, dir)
   -- Note: No specific galley switch found in iFly variables
   -- Using Bus Transfer switch as alternative or may need to use custom variable
   if dir > 0 then
-    fs2020_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", 20) -- ON
+    msfs_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", 20) -- ON
   else
-    fs2020_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", 0) -- OFF
+    msfs_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", 0) -- OFF
   end
 end
 
 -- ORIGINAL PMDG CODE:
--- fs2020_variable_subscribe("L:switch_05_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_05_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_Bus_Transfer_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Bus_Transfer_SW_VAL", "number", function(v)
    if (v < 5) then 
        switch_set_position(gSwitchGalley, 0 )
    else
@@ -728,7 +728,7 @@ gTextDcVolt = txt_add("333", gFontDisplay..gColorDisplay, 55, 115, 85, 40)
 gTextAcAmps = txt_add("333", gFontDisplay..gColorDisplay, 145, 115, 85, 40) 
 gTextAcVolt = txt_add("333", gFontDisplay..gColorDisplay, 235, 115, 85, 40) 
 
-fs2020_variable_subscribe("L:ipcpmdg_DC_Ammeter", "number", function(v)
+msfs_variable_subscribe("L:ipcpmdg_DC_Ammeter", "number", function(v)
   if v == 999 then
     txt_set(gTextDcAmps, "")
   else
@@ -736,7 +736,7 @@ fs2020_variable_subscribe("L:ipcpmdg_DC_Ammeter", "number", function(v)
   end
 end)
 
-fs2020_variable_subscribe("L:ipcpmdg_Frequencymeter", "number", function(v)
+msfs_variable_subscribe("L:ipcpmdg_Frequencymeter", "number", function(v)
   if v == 999 then
     txt_set(gTextFreq, "")
   else
@@ -744,7 +744,7 @@ fs2020_variable_subscribe("L:ipcpmdg_Frequencymeter", "number", function(v)
   end
 end)
 
-fs2020_variable_subscribe("L:ipcpmdg_DC_Voltmeter", "number", function(v)
+msfs_variable_subscribe("L:ipcpmdg_DC_Voltmeter", "number", function(v)
   if v == 999 then
     txt_set(gTextDcVolt, "")
   else
@@ -752,7 +752,7 @@ fs2020_variable_subscribe("L:ipcpmdg_DC_Voltmeter", "number", function(v)
   end
 end)
 
-fs2020_variable_subscribe("L:ipcpmdg_AC_Ammeter", "number", function(v)
+msfs_variable_subscribe("L:ipcpmdg_AC_Ammeter", "number", function(v)
   if v == 999 then
     txt_set(gTextAcAmps, "")
   else
@@ -760,7 +760,7 @@ fs2020_variable_subscribe("L:ipcpmdg_AC_Ammeter", "number", function(v)
   end
 end)
 
-fs2020_variable_subscribe("L:ipcpmdg_AC_Voltmeter", "number", function(v)
+msfs_variable_subscribe("L:ipcpmdg_AC_Voltmeter", "number", function(v)
   if v == 999 then
     txt_set(gTextAcVolt, "")
   else
@@ -809,7 +809,7 @@ function AddLight(lvar, img, x, y, text1, text2)
   end)
   if lvar ~= nil then
     local n = gLightCount
-    fs2020_variable_subscribe(lvar, "number", function(v)
+    msfs_variable_subscribe(lvar, "number", function(v)
       if v == 0 then
         v = .1
       else

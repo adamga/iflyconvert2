@@ -40,17 +40,17 @@ dial_add("knob.png", 96, 308, 60, 60, function(rotac)
   if rotac>0 then
     if currentLandAlt < 100 then
       currentLandAlt = currentLandAlt + 10
-      fs2020_variable_write("L:VC_Landing_Altitude_SW_VAL", "number", currentLandAlt)
+      msfs_variable_write("L:VC_Landing_Altitude_SW_VAL", "number", currentLandAlt)
     end
   else
     if currentLandAlt > 0 then
       currentLandAlt = currentLandAlt - 10
-      fs2020_variable_write("L:VC_Landing_Altitude_SW_VAL", "number", currentLandAlt)
+      msfs_variable_write("L:VC_Landing_Altitude_SW_VAL", "number", currentLandAlt)
     end
   end
 end)
 
-fs2020_variable_subscribe("L:VC_Landing_Altitude_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Landing_Altitude_SW_VAL", "number", function(v)
   currentLandAlt = v
 end)
 
@@ -71,17 +71,17 @@ dial_add("knob.png", 96, 167, 60, 60, function(rotac)
   if rotac>0 then
     if currentFlightAlt < 100 then
       currentFlightAlt = currentFlightAlt + 10
-      fs2020_variable_write("L:VC_Flight_Altitude_SW_VAL", "number", currentFlightAlt)
+      msfs_variable_write("L:VC_Flight_Altitude_SW_VAL", "number", currentFlightAlt)
     end
   else
     if currentFlightAlt > 0 then
       currentFlightAlt = currentFlightAlt - 10
-      fs2020_variable_write("L:VC_Flight_Altitude_SW_VAL", "number", currentFlightAlt)
+      msfs_variable_write("L:VC_Flight_Altitude_SW_VAL", "number", currentFlightAlt)
     end
   end
 end)
 
-fs2020_variable_subscribe("L:VC_Flight_Altitude_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Flight_Altitude_SW_VAL", "number", function(v)
   currentFlightAlt = v
 end)
 
@@ -221,25 +221,26 @@ local gSwitchOutflowValve
 -- ================ CONVERTED iFLY CODE ================
 function cbSwitchOutflowValve(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Outflow_Valve_SW_VAL", "number", 20)  -- OPEN position
+    msfs_variable_write("L:VC_Outflow_Valve_SW_VAL", "number", 20)  -- OPEN position
   elseif dir < 0 then
-    fs2020_variable_write("L:VC_Outflow_Valve_SW_VAL", "number", 0)   -- CLOSE position
+    msfs_variable_write("L:VC_Outflow_Valve_SW_VAL", "number", 0)   -- CLOSE position
   else
-    fs2020_variable_write("L:VC_Outflow_Valve_SW_VAL", "number", 10)  -- NEUTRAL position
+    msfs_variable_write("L:VC_Outflow_Valve_SW_VAL", "number", 10)  -- NEUTRAL position
   end
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
--- fs2020_variable_subscribe("L:switch_222_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_222_73X", "number", function(v)
 --   SetSwitchPosition(gSwitchOutflowValve, math.floor(v/50)+1)
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Outflow_Valve_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Outflow_Valve_SW_VAL", "number", function(v)
   SetSwitchPosition(gSwitchOutflowValve, math.floor(v/10)+1)
 end)
 
 gSwitchOutflowValve = AddHorizontalSpringSwitch(236, 200, true, true, true, cbSwitchOutflowValve)
+SetSwitchPosition(gSwitchOutflowValve, 2)
 
 
 -- ===================================
@@ -522,7 +523,7 @@ gImgNeedle = img_add("needle.png", 251, 96, 88, 88)
 img_add("gauge.png", 251, 96, 88, 88)
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
--- fs2020_variable_subscribe("L:switch_221_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_221_73X", "number", function(v)
 --   local angle = (v-30)/26*45
 --   if angle <  -53 then
 --     angle = -53
@@ -533,7 +534,7 @@ img_add("gauge.png", 251, 96, 88, 88)
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Outflow_VALVE_Position_Indicator_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Outflow_VALVE_Position_Indicator_VAL", "number", function(v)
   local angle = (v-30)/26*45
   if angle <  -53 then
     angle = -53
@@ -587,25 +588,25 @@ dial_add(nil, 257, 306, 60, 60, function(rotac)
   if rotac>0 then
     if currentPressMode < 20 then
       currentPressMode = currentPressMode + 10
-      fs2020_variable_write("L:VC_Pressurization_Mode_SW_VAL", "number", currentPressMode)
+      msfs_variable_write("L:VC_Pressurization_Mode_SW_VAL", "number", currentPressMode)
     end
   else
     if currentPressMode > 0 then
       currentPressMode = currentPressMode - 10
-      fs2020_variable_write("L:VC_Pressurization_Mode_SW_VAL", "number", currentPressMode)
+      msfs_variable_write("L:VC_Pressurization_Mode_SW_VAL", "number", currentPressMode)
     end
   end
 end)
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
--- fs2020_variable_subscribe("L:switch_223_73X", "number", function(v)
+-- msfs_variable_subscribe("L:switch_223_73X", "number", function(v)
 --   local angle = v/10*30-30
 --   rotate(gImgDialMode, angle, "LOG", .2)
 --   rotate(gImgModeNeedle, angle, "LOG", .2)
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Pressurization_Mode_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Pressurization_Mode_SW_VAL", "number", function(v)
   local angle = v/10*30-30
   rotate(gImgDialMode, angle, "LOG", .2)
   rotate(gImgModeNeedle, angle, "LOG", .2)
@@ -674,7 +675,7 @@ function AddLight(lvar, img, x, y, text1, text2)
   end)
   if lvar ~= nil then
     local n = gLightCount
-    fs2020_variable_subscribe(lvar, "number", function(v)
+    msfs_variable_subscribe(lvar, "number", function(v)
       if v == 0 then
         v = .2
       else
@@ -691,8 +692,8 @@ end
 local gTxtFlight = txt_add("41000", "font:digital-7-mono.ttf; size:30;"..gColorDisplay..";halign:right;", 85, 103, 80, 35)
 local gTxtLand = txt_add("-200", "font:digital-7-mono.ttf; size:30;"..gColorDisplay..";halign:right;", 85, 243, 80, 35)
 
---fs2020_variable_subscribe("AIR_DisplayLandAlt", "string", function(v)
---fs2020_variable_subscribe("PMDG_NG3_Data:AIR_DisplayLandAlt", "STRING", function(v)
+--msfs_variable_subscribe("AIR_DisplayLandAlt", "string", function(v)
+--msfs_variable_subscribe("PMDG_NG3_Data:AIR_DisplayLandAlt", "STRING", function(v)
 --  if v == 99000. then
 --    txt_set(gTxtLand, "-----")
 --  else
@@ -701,12 +702,12 @@ local gTxtLand = txt_add("-200", "font:digital-7-mono.ttf; size:30;"..gColorDisp
 --end)
 local monval = ""
 
-fs2020_variable_subscribe("AIR_DisplayLandAlt", "CHAR_ARRAY", function(v)
+msfs_variable_subscribe("AIR_DisplayLandAlt", "CHAR_ARRAY", function(v)
     monval = v
     txt_set(gTxtLand, v)
 end)
 
-fs2020_variable_subscribe("AIR_DisplayFltAlt", "string", function(v)
+msfs_variable_subscribe("AIR_DisplayFltAlt", "string", function(v)
   if v == 99000. then
     txt_set(gTxtFlight, "-----")
   end

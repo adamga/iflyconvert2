@@ -297,13 +297,13 @@ local gSwitchDisconnect1
 function cbSwitchDisconnect1(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
-    fs2020_variable_write("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", 10) -- open cover with any button
+    msfs_variable_write("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", 10) -- open cover with any button
     return
   end
-  fs2020_variable_write("L:VC_IDG_1_Disc_SW_VAL", "number", 10)
+  msfs_variable_write("L:VC_IDG_1_Disc_SW_VAL", "number", 10)
 end
 
-fs2020_variable_subscribe("L:VC_IDG_1_Disc_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_IDG_1_Disc_SW_VAL", "number", function(v)
   if v==0 then
     SetSwitchPosition(gSwitchDisconnect1, 1) -- NORM position
   else
@@ -314,19 +314,19 @@ end)
 function cbGuardDisconnect1(switch, dir)
   local s = gSwitch[switch]
   if not s.closed and dir>0 then
-    fs2020_variable_write("L:VC_IDG_1_Disc_SW_VAL", "number", 10) -- incr switch with cover open button
+    msfs_variable_write("L:VC_IDG_1_Disc_SW_VAL", "number", 10) -- incr switch with cover open button
     return
   end
   if dir>0 then
-    fs2020_variable_write("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", 10) -- open cover
+    msfs_variable_write("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", 10) -- open cover
   else
-    fs2020_variable_write("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", 0) -- close cover
+    msfs_variable_write("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", 0) -- close cover
   end
 end
 
 gSwitchDisconnect1 = AddRedVerGuardSwitch(57, 150, true, true, false, cbSwitchDisconnect1, cbGuardDisconnect1)
 
-fs2020_variable_subscribe("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_IDG_1_Disc_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchDisconnect1, v==0)
 end)
 
@@ -367,13 +367,13 @@ local gSwitchDisconnect2
 function cbSwitchDisconnect2(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
-    fs2020_variable_write("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", 10) -- open cover with any button
+    msfs_variable_write("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", 10) -- open cover with any button
     return
   end
-  fs2020_variable_write("L:VC_IDG_2_Disc_SW_VAL", "number", 10)
+  msfs_variable_write("L:VC_IDG_2_Disc_SW_VAL", "number", 10)
 end
 
-fs2020_variable_subscribe("L:VC_IDG_2_Disc_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_IDG_2_Disc_SW_VAL", "number", function(v)
   if v==0 then
     SetSwitchPosition(gSwitchDisconnect2, 1) -- NORM position
   else
@@ -384,19 +384,19 @@ end)
 function cbGuardDisconnect2(switch, dir)
   local s = gSwitch[switch]
   if not s.closed and dir>0 then
-    fs2020_variable_write("L:VC_IDG_2_Disc_SW_VAL", "number", 10) -- incr switch with cover open button
+    msfs_variable_write("L:VC_IDG_2_Disc_SW_VAL", "number", 10) -- incr switch with cover open button
     return
   end
   if dir>0 then
-    fs2020_variable_write("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", 10) -- open cover
+    msfs_variable_write("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", 10) -- open cover
   else
-    fs2020_variable_write("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", 0) -- close cover
+    msfs_variable_write("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", 0) -- close cover
   end
 end
 
 gSwitchDisconnect2 = AddRedVerGuardSwitch(291, 150, true, true, false, cbSwitchDisconnect2, cbGuardDisconnect2)
 
-fs2020_variable_subscribe("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_IDG_2_Disc_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchDisconnect2, v==0)
 end)
 
@@ -439,17 +439,17 @@ local gSwitchStandbyPower
 function cbSwitchStandbyPower(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
-    fs2020_variable_write("L:VC_STANDBY_POWER_SW_Cover_VAL", "number", 10) -- open cover with any button
+    msfs_variable_write("L:VC_STANDBY_POWER_SW_Cover_VAL", "number", 10) -- open cover with any button
     return
   end
   if dir>0 then
-    fs2020_variable_write("L:VC_STANDBY_POWER_SW_VAL", "number", 30) -- AUTO
+    msfs_variable_write("L:VC_STANDBY_POWER_SW_VAL", "number", 30) -- AUTO
   else
-    fs2020_variable_write("L:VC_STANDBY_POWER_SW_VAL", "number", 10) -- BATT
+    msfs_variable_write("L:VC_STANDBY_POWER_SW_VAL", "number", 10) -- BATT
   end
 end
 
-fs2020_variable_subscribe("L:VC_STANDBY_POWER_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_STANDBY_POWER_SW_VAL", "number", function(v)
   if v==10 then
     SetSwitchPosition(gSwitchStandbyPower, 1) -- BATT position
   elseif v==20 then
@@ -462,15 +462,15 @@ end)
 function cbGuardStandbyPower(switch, dir)
   local s = gSwitch[switch]
   if not s.closed and dir>0 then
-    fs2020_variable_write("L:VC_STANDBY_POWER_SW_VAL", "number", 30) -- set to AUTO with cover open button
+    msfs_variable_write("L:VC_STANDBY_POWER_SW_VAL", "number", 30) -- set to AUTO with cover open button
     return
   end
-  fs2020_variable_write("L:VC_STANDBY_POWER_SW_Cover_VAL", "number", 10) -- toggle cover
+  msfs_variable_write("L:VC_STANDBY_POWER_SW_Cover_VAL", "number", 10) -- toggle cover
 end
 
 gSwitchStandbyPower = AddHorGuardSwitch(145, 138, true, true, true, cbSwitchStandbyPower, cbGuardStandbyPower)
 
-fs2020_variable_subscribe("L:VC_STANDBY_POWER_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_STANDBY_POWER_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchStandbyPower, v==0)
 end)
 

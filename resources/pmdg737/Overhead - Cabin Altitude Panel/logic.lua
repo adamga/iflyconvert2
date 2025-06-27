@@ -464,7 +464,7 @@ img_add("needle-cover.png", 96+66-15, 255+66-15, 30, 30)
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_CABIN_Rate_Indicator_Pointer_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_CABIN_Rate_Indicator_Pointer_VAL", "number", function(v)
   rotate(gNeedleClimbrate, AngleClimbrate(v)-90)
 end)
 
@@ -495,7 +495,7 @@ local gNeedleDiffPress = canvas_add(54, 21, 200, 200, DrawNeedleDiffPress)
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_CABIN_Diff_Indicator_Pointer_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_CABIN_Diff_Indicator_Pointer_VAL", "number", function(v)
   rotate(gNeedleDiffPress, v/1100*360)
 end)
 
@@ -518,7 +518,7 @@ local gNeedleCabinAlt = canvas_add(89, 56, 130, 130, DrawNeedleCabinAlt)
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_CABIN_Alt_Indicator_Pointer_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_CABIN_Alt_Indicator_Pointer_VAL", "number", function(v)
   rotate(gNeedleCabinAlt, AngleCabinAlt(v)) 
 end)
 
@@ -534,8 +534,8 @@ img_add("needle-cover.png", 139, 106, 30, 30)
 
 -- ================ CONVERTED iFLY CODE ================
 button_add("button-released.png", "button-pressed.png", 305, 115, 30, 30,
-  function() fs2020_variable_write("L:VC_Altitude_HORN_Cutout_SW_VAL", "number", 10) end,
-  function() fs2020_variable_write("L:VC_Altitude_HORN_Cutout_SW_VAL", "number", 0) end)
+  function() msfs_variable_write("L:VC_Altitude_HORN_Cutout_SW_VAL", "number", 10) end,
+  function() msfs_variable_write("L:VC_Altitude_HORN_Cutout_SW_VAL", "number", 0) end)
 
 -- ======================= Dimm all, except lights ================
 

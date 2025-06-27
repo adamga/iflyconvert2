@@ -94,21 +94,26 @@ function cbSetAPUSwitch(v)
   end
 end
 
-fs2020_variable_subscribe("L:VC_APU_SW_VAL", "number", cbSetAPUSwitch)
+msfs_variable_subscribe("L:VC_APU_SW_VAL", "number", cbSetAPUSwitch)
 
 function cbDown()
   if gAPUvalue == 0 then
-    fs2020_variable_write("L:VC_APU_SW_VAL", "number", 10) -- Set to ON
+    msfs_variable_write("L:VC_APU_SW_VAL", "number", 10) -- Set to ON
   else
-    fs2020_variable_write("L:VC_APU_SW_VAL", "number", 20) -- Set to START
+    msfs_variable_write("L:VC_APU_SW_VAL", "number", 20) -- Set to START
   end
 end
 
 function cbUp()
-  fs2020_variable_write("L:VC_APU_SW_VAL", "number", 0) -- Set to OFF
+  msfs_variable_write("L:VC_APU_SW_VAL", "number", 0) -- Set to OFF
 end
 
+--button_add("button-visible.png", nil, 143, 105, 111, 40, cbDown, nil)
+button_add(nil, nil, 143, 105, 111, 40, cbDown, nil)
 
+
+--button_add("button-visible.png", nil, 143, 33, 111, 40, cbUp, nil)
+button_add(nil, nil, 143, 33, 111, 40, cbUp, nil)
 ------------ Engine Start Switches ----------------------
 -- ORIGINAL PMDG CODE:
 -- local gEngLeftValue
@@ -138,7 +143,7 @@ function cbTurnEngineStartSwitchLeft(rotac)
   else
     currentPos = math.max(currentPos - 10, 0) -- Min is GRD (0)
   end
-  fs2020_variable_write("L:VC_Engine_1_Start_SW_VAL", "number", currentPos)
+  msfs_variable_write("L:VC_Engine_1_Start_SW_VAL", "number", currentPos)
 end
 
 function cbSetEngineStartSwitchLeft(v)
@@ -147,7 +152,7 @@ function cbSetEngineStartSwitchLeft(v)
   rotate(gImgEngStartLeftSwitch, v*3-30) -- Same rotation logic as original
 end
 
-fs2020_variable_subscribe("L:VC_Engine_1_Start_SW_VAL", "number", cbSetEngineStartSwitchLeft)
+msfs_variable_subscribe("L:VC_Engine_1_Start_SW_VAL", "number", cbSetEngineStartSwitchLeft)
 
 dial_add(nil, 30, 45, 70, 70, cbTurnEngineStartSwitchLeft)
 
@@ -174,7 +179,7 @@ function cbTurnEngineStartSwitchRight(rotac)
   else
     currentPos = math.max(currentPos - 10, 0) -- Min is GRD (0)
   end
-  fs2020_variable_write("L:VC_Engine_2_Start_SW_VAL", "number", currentPos)
+  msfs_variable_write("L:VC_Engine_2_Start_SW_VAL", "number", currentPos)
 end
 
 function cbSetEngineStartSwitchRight(v)
@@ -183,7 +188,7 @@ function cbSetEngineStartSwitchRight(v)
   rotate(gImgEngStartRightSwitch, v*3-30) -- Same rotation logic as original
 end
 
-fs2020_variable_subscribe("L:VC_Engine_2_Start_SW_VAL", "number", cbSetEngineStartSwitchRight)
+msfs_variable_subscribe("L:VC_Engine_2_Start_SW_VAL", "number", cbSetEngineStartSwitchRight)
 
 dial_add(nil, 280, 45, 70, 70, cbTurnEngineStartSwitchRight)
 
@@ -253,7 +258,7 @@ elseif gPropIllumination == "Real" then
   -- msfs_variable_subscribe("L:switch_258_73X", "number", cbScalesIllumination)
   
   -- iFly Conversion:
-  fs2020_variable_subscribe("L:VC_LIGHTING_PANEL_SCALES_SW_VAL", "number", cbScalesIllumination)
+  msfs_variable_subscribe("L:VC_LIGHTING_PANEL_SCALES_SW_VAL", "number", cbScalesIllumination)
   
 else -- Dial
   -- ORIGINAL PMDG CODE:
@@ -261,7 +266,7 @@ else -- Dial
   -- msfs_variable_subscribe("A:LIGHT POTENTIOMETER:3", "Number",  function(v) gScalesLight = v; cbLightChange() end)
   
   -- iFly Conversion:
-  fs2020_variable_subscribe("A:LIGHT POTENTIOMETER:2", "Number",  function(v) gDaylight = v; cbLightChange() end)
-  fs2020_variable_subscribe("A:LIGHT POTENTIOMETER:3", "Number",  function(v) gScalesLight = v; cbLightChange() end)
+  msfs_variable_subscribe("A:LIGHT POTENTIOMETER:2", "Number",  function(v) gDaylight = v; cbLightChange() end)
+  msfs_variable_subscribe("A:LIGHT POTENTIOMETER:3", "Number",  function(v) gScalesLight = v; cbLightChange() end)
 end
 ---------------------

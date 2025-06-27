@@ -297,7 +297,7 @@ function AddLight(lvar, img, x, y, text1, text2)
     -- end)
     
     -- ================ CONVERTED iFLY CODE ================
-    fs2020_variable_subscribe(lvar, "number", function(v)
+    msfs_variable_subscribe(lvar, "number", function(v)
       if v == 0 then
         v = .1
       else
@@ -521,7 +521,7 @@ function cbSwitchGen1(switch, dir)
   else
     currentGen1Position = math.max(currentGen1Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_ENG_1_Generator_SW_VAL", "number", currentGen1Position)
+  msfs_variable_write("L:VC_ENG_1_Generator_SW_VAL", "number", currentGen1Position)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -530,7 +530,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_ENG_1_Generator_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_ENG_1_Generator_SW_VAL", "number", function(v)
   currentGen1Position = v
   SetSwitchPosition(gSwitchGen1, math.floor(v/10)+1)
 end)
@@ -558,7 +558,7 @@ function cbSwitchApuLeft(switch, dir)
   else
     currentApuLeftPosition = math.max(currentApuLeftPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_APU_Generator_1_SW_VAL", "number", currentApuLeftPosition)
+  msfs_variable_write("L:VC_APU_Generator_1_SW_VAL", "number", currentApuLeftPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -567,7 +567,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_APU_Generator_1_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_APU_Generator_1_SW_VAL", "number", function(v)
   currentApuLeftPosition = v
   SetSwitchPosition(gSwitchApuLeft, math.floor(v/10)+1)
 end)
@@ -595,7 +595,7 @@ function cbSwitchApuRight(switch, dir)
   else
     currentApuRightPosition = math.max(currentApuRightPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_APU_Generator_2_SW_VAL", "number", currentApuRightPosition)
+  msfs_variable_write("L:VC_APU_Generator_2_SW_VAL", "number", currentApuRightPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -604,7 +604,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_APU_Generator_2_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_APU_Generator_2_SW_VAL", "number", function(v)
   currentApuRightPosition = v
   SetSwitchPosition(gSwitchApuRight, math.floor(v/10)+1)
 end)
@@ -632,7 +632,7 @@ function cbSwitchGen2(switch, dir)
   else
     currentGen2Position = math.max(currentGen2Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_ENG_2_Generator_SW_VAL", "number", currentGen2Position)
+  msfs_variable_write("L:VC_ENG_2_Generator_SW_VAL", "number", currentGen2Position)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -641,7 +641,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_ENG_2_Generator_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_ENG_2_Generator_SW_VAL", "number", function(v)
   currentGen2Position = v
   SetSwitchPosition(gSwitchGen2, math.floor(v/10)+1)
 end)
@@ -669,7 +669,7 @@ function cbSwitchGroundPowerAvailable(switch, dir)
   else
     currentGroundPowerPosition = math.max(currentGroundPowerPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Ground_Power_SW_VAL", "number", currentGroundPowerPosition)
+  msfs_variable_write("L:VC_Ground_Power_SW_VAL", "number", currentGroundPowerPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -678,7 +678,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Ground_Power_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Ground_Power_SW_VAL", "number", function(v)
   currentGroundPowerPosition = v
   SetSwitchPosition(gSwitchGroundPowerAvailable, math.floor(v/10)+1)
 end)
@@ -709,7 +709,7 @@ function cbSwitchBusTrans(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
     -- Open cover
-    fs2020_variable_write("L:VC_Bus_Transfer_SW_Cover_VAL", "number", 10)
+    msfs_variable_write("L:VC_Bus_Transfer_SW_Cover_VAL", "number", 10)
     return
   end
   -- Toggle Bus Transfer switch (AUTO/MAN)
@@ -718,7 +718,7 @@ function cbSwitchBusTrans(switch, dir)
   else
     currentBusTransPosition = 10 -- AUTO
   end
-  fs2020_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", currentBusTransPosition)
+  msfs_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", currentBusTransPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -731,7 +731,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Bus_Transfer_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Bus_Transfer_SW_VAL", "number", function(v)
   currentBusTransPosition = v
   if v==0 then
     SetSwitchPosition(gSwitchBusTrans, 1) -- MAN
@@ -765,11 +765,11 @@ function cbGuardBusTrans(switch, dir)
     else
       currentBusTransPosition = 10 -- AUTO
     end
-    fs2020_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", currentBusTransPosition)
+    msfs_variable_write("L:VC_Bus_Transfer_SW_VAL", "number", currentBusTransPosition)
     return
   end
   -- Toggle guard cover (always open when clicked)
-  fs2020_variable_write("L:VC_Bus_Transfer_SW_Cover_VAL", "number", 10)
+  msfs_variable_write("L:VC_Bus_Transfer_SW_Cover_VAL", "number", 10)
 end
 
 gSwitchBusTrans = AddHorGuardSwitch(135, 169, true, true, false, cbSwitchBusTrans, cbGuardBusTrans)
@@ -780,7 +780,7 @@ gSwitchBusTrans = AddHorGuardSwitch(135, 169, true, true, false, cbSwitchBusTran
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Bus_Transfer_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Bus_Transfer_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchBusTrans, v==0)
 end)
 

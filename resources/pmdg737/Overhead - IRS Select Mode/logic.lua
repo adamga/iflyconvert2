@@ -179,7 +179,7 @@ function cbLeftSwitch(rotac)
   else
     currentIRS1Position = math.max(currentIRS1Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_IRS_1_SW_VAL", "number", currentIRS1Position)
+  msfs_variable_write("L:VC_IRS_1_SW_VAL", "number", currentIRS1Position)
 end
 
 dial_add(nil, 76, 201, 60, 60, cbLeftSwitch)
@@ -194,7 +194,7 @@ dial_add(nil, 76, 201, 60, 60, cbLeftSwitch)
 
 -- ================ CONVERTED iFLY CODE ================
 -- 0 = OFF, 10 == ALIGN, 20 = NAV, 30 = ATT
-fs2020_variable_subscribe("L:VC_IRS_1_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_IRS_1_SW_VAL", "number", function(v)
   currentIRS1Position = v
   local angle = v/10*40-60
   rotate(gImgLeftDial, angle, "LOG", .1)
@@ -222,7 +222,7 @@ function cbRightSwitch(rotac)
   else
     currentIRS2Position = math.max(currentIRS2Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_IRS_2_SW_VAL", "number", currentIRS2Position)
+  msfs_variable_write("L:VC_IRS_2_SW_VAL", "number", currentIRS2Position)
 end
 
 dial_add(nil, 266, 201, 60, 60, cbRightSwitch)
@@ -237,7 +237,7 @@ dial_add(nil, 266, 201, 60, 60, cbRightSwitch)
 
 -- ================ CONVERTED iFLY CODE ================
 -- 0 = OFF, 10 == ALIGN, 20 = NAV, 30 = ATT
-fs2020_variable_subscribe("L:VC_IRS_2_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_IRS_2_SW_VAL", "number", function(v)
   currentIRS2Position = v
   local angle = v/10*40-60
   rotate(gImgRightDial, angle, "LOG", .1)

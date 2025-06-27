@@ -160,7 +160,7 @@ function cbSwitchRunwayTurnoffLightLeft(switch, dir)
   else
     currentRunwayTurnoffLeftPosition = math.max(currentRunwayTurnoffLeftPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Runway_Turnoff_Light_L_SW_VAL", "number", currentRunwayTurnoffLeftPosition)
+  msfs_variable_write("L:VC_Runway_Turnoff_Light_L_SW_VAL", "number", currentRunwayTurnoffLeftPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -169,7 +169,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Runway_Turnoff_Light_L_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Runway_Turnoff_Light_L_SW_VAL", "number", function(v)
   currentRunwayTurnoffLeftPosition = v
   if v == 0 then
     SetSwitchPosition(gSwitchRunwayTurnoffLightLeft, 1) -- OFF position
@@ -201,7 +201,7 @@ function cbSwitchRunwayTurnoffLightRight(switch, dir)
   else
     currentRunwayTurnoffRightPosition = math.max(currentRunwayTurnoffRightPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Runway_Turnoff_Light_R_SW_VAL", "number", currentRunwayTurnoffRightPosition)
+  msfs_variable_write("L:VC_Runway_Turnoff_Light_R_SW_VAL", "number", currentRunwayTurnoffRightPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -210,7 +210,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Runway_Turnoff_Light_R_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Runway_Turnoff_Light_R_SW_VAL", "number", function(v)
   currentRunwayTurnoffRightPosition = v
   if v == 0 then
     SetSwitchPosition(gSwitchRunwayTurnoffLightRight, 1) -- OFF position
@@ -244,7 +244,7 @@ function cbSwitchTaxiLight(switch, dir)
   else
     currentTaxiLightPosition = math.max(currentTaxiLightPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Taxi_Light_SW_VAL", "number", currentTaxiLightPosition)
+  msfs_variable_write("L:VC_Taxi_Light_SW_VAL", "number", currentTaxiLightPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -253,7 +253,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Taxi_Light_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Taxi_Light_SW_VAL", "number", function(v)
   currentTaxiLightPosition = v
   if v == 0 then
     SetSwitchPosition(gSwitchTaxiLight, 1) -- OFF position
@@ -286,7 +286,7 @@ function cbSwitchFixedLandingLightLeft(switch, dir)
   else
     currentLandingLightLeftPosition = math.max(currentLandingLightLeftPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Landing_Light_1_SW_VAL", "number", currentLandingLightLeftPosition)
+  msfs_variable_write("L:VC_Landing_Light_1_SW_VAL", "number", currentLandingLightLeftPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -295,7 +295,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Landing_Light_1_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Landing_Light_1_SW_VAL", "number", function(v)
   currentLandingLightLeftPosition = v
   if v == 0 then
     SetSwitchPosition(gSwitchFixedLandingLightLeft, 1) -- OFF position
@@ -327,7 +327,7 @@ function cbSwitchFixedLandingLightRight(switch, dir)
   else
     currentLandingLightRightPosition = math.max(currentLandingLightRightPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Landing_Light_2_SW_VAL", "number", currentLandingLightRightPosition)
+  msfs_variable_write("L:VC_Landing_Light_2_SW_VAL", "number", currentLandingLightRightPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -336,7 +336,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Landing_Light_2_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Landing_Light_2_SW_VAL", "number", function(v)
   currentLandingLightRightPosition = v
   if v == 0 then
     SetSwitchPosition(gSwitchFixedLandingLightRight, 1) -- OFF position

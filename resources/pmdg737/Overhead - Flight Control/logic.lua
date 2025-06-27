@@ -461,7 +461,7 @@ function cbSwitchFlightControlA(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
     -- Open cover
-    fs2020_variable_write("L:VC_Flight_Control_A_SW_Cover_VAL", "number", 10)
+    msfs_variable_write("L:VC_Flight_Control_A_SW_Cover_VAL", "number", 10)
     return
   end
   if dir>0 then
@@ -469,7 +469,7 @@ function cbSwitchFlightControlA(switch, dir)
   else
     currentFlightControlAPosition = math.max(currentFlightControlAPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Flight_Control_A_SW_VAL", "number", currentFlightControlAPosition)
+  msfs_variable_write("L:VC_Flight_Control_A_SW_VAL", "number", currentFlightControlAPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -478,7 +478,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Flight_Control_A_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Flight_Control_A_SW_VAL", "number", function(v)
   currentFlightControlAPosition = v
   SetSwitchPosition(gSwitchFlightControlA, math.floor(v/10)+1)
 end)
@@ -504,14 +504,14 @@ function cbGuardFlightControlA(switch, dir)
   if not s.closed and dir>0 then
     -- Increment switch when cover is open
     currentFlightControlAPosition = math.min(currentFlightControlAPosition + 10, 20)
-    fs2020_variable_write("L:VC_Flight_Control_A_SW_VAL", "number", currentFlightControlAPosition)
+    msfs_variable_write("L:VC_Flight_Control_A_SW_VAL", "number", currentFlightControlAPosition)
     return
   end
   -- Toggle guard cover
   if dir>0 then
-    fs2020_variable_write("L:VC_Flight_Control_A_SW_Cover_VAL", "number", 10) -- Open
+    msfs_variable_write("L:VC_Flight_Control_A_SW_Cover_VAL", "number", 10) -- Open
   else
-    fs2020_variable_write("L:VC_Flight_Control_A_SW_Cover_VAL", "number", 0)  -- Close
+    msfs_variable_write("L:VC_Flight_Control_A_SW_Cover_VAL", "number", 0)  -- Close
   end
 end
 
@@ -523,7 +523,7 @@ gSwitchFlightControlA = AddBlackVerGuardSwitch(54, 38, true, true, true, cbSwitc
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Flight_Control_A_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Flight_Control_A_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchFlightControlA, v==0)
 end)
 
@@ -549,7 +549,7 @@ function cbSwitchFlightControlB(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
     -- Open cover
-    fs2020_variable_write("L:VC_Flight_Control_B_SW_Cover_VAL", "number", 10)
+    msfs_variable_write("L:VC_Flight_Control_B_SW_Cover_VAL", "number", 10)
     return
   end
   if dir>0 then
@@ -557,7 +557,7 @@ function cbSwitchFlightControlB(switch, dir)
   else
     currentFlightControlBPosition = math.max(currentFlightControlBPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Flight_Control_B_SW_VAL", "number", currentFlightControlBPosition)
+  msfs_variable_write("L:VC_Flight_Control_B_SW_VAL", "number", currentFlightControlBPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -566,7 +566,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Flight_Control_B_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Flight_Control_B_SW_VAL", "number", function(v)
   currentFlightControlBPosition = v
   SetSwitchPosition(gSwitchFlightControlB, math.floor(v/10)+1)
 end)
@@ -591,14 +591,14 @@ function cbGuardFlightControlB(switch, dir)
   if not s.closed and dir>0 then
     -- Increment switch when cover is open
     currentFlightControlBPosition = math.min(currentFlightControlBPosition + 10, 20)
-    fs2020_variable_write("L:VC_Flight_Control_B_SW_VAL", "number", currentFlightControlBPosition)
+    msfs_variable_write("L:VC_Flight_Control_B_SW_VAL", "number", currentFlightControlBPosition)
     return
   end
   -- Toggle guard cover
   if dir>0 then
-    fs2020_variable_write("L:VC_Flight_Control_B_SW_Cover_VAL", "number", 10) -- Open
+    msfs_variable_write("L:VC_Flight_Control_B_SW_Cover_VAL", "number", 10) -- Open
   else
-    fs2020_variable_write("L:VC_Flight_Control_B_SW_Cover_VAL", "number", 0)  -- Close
+    msfs_variable_write("L:VC_Flight_Control_B_SW_Cover_VAL", "number", 0)  -- Close
   end
 end
 
@@ -610,7 +610,7 @@ gSwitchFlightControlB = AddBlackVerGuardSwitch(133, 38, true, true, true, cbSwit
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Flight_Control_B_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Flight_Control_B_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchFlightControlB, v==0)
 end)
 
@@ -637,7 +637,7 @@ function cbSwitchSpoilerA(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
     -- Open cover
-    fs2020_variable_write("L:VC_Spoiler_A_SW_Cover_VAL", "number", 10)
+    msfs_variable_write("L:VC_Spoiler_A_SW_Cover_VAL", "number", 10)
     return
   end
   -- Toggle spoiler A position
@@ -646,7 +646,7 @@ function cbSwitchSpoilerA(switch, dir)
   else
     currentSpoilerAPosition = 10 -- OFF
   end
-  fs2020_variable_write("L:VC_Spoiler_A_SW_VAL", "number", currentSpoilerAPosition)
+  msfs_variable_write("L:VC_Spoiler_A_SW_VAL", "number", currentSpoilerAPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -655,7 +655,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Spoiler_A_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Spoiler_A_SW_VAL", "number", function(v)
   currentSpoilerAPosition = v
   SetSwitchPosition(gSwitchSpoilerA, math.floor(v/10)+1)
 end)
@@ -684,14 +684,14 @@ function cbGuardSpoilerA(switch, dir)
     else
       currentSpoilerAPosition = 10 -- OFF
     end
-    fs2020_variable_write("L:VC_Spoiler_A_SW_VAL", "number", currentSpoilerAPosition)
+    msfs_variable_write("L:VC_Spoiler_A_SW_VAL", "number", currentSpoilerAPosition)
     return
   end
   -- Toggle guard cover
   if dir>0 then
-    fs2020_variable_write("L:VC_Spoiler_A_SW_Cover_VAL", "number", 10) -- Open
+    msfs_variable_write("L:VC_Spoiler_A_SW_Cover_VAL", "number", 10) -- Open
   else
-    fs2020_variable_write("L:VC_Spoiler_A_SW_Cover_VAL", "number", 0)  -- Close
+    msfs_variable_write("L:VC_Spoiler_A_SW_Cover_VAL", "number", 0)  -- Close
   end
 end
 
@@ -703,7 +703,7 @@ gSwitchSpoilerA = AddBlackVerGuardSwitch(56, 254, false, true, true, cbSwitchSpo
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Spoiler_A_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Spoiler_A_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchSpoilerA, v==0)
 end)
 
@@ -730,7 +730,7 @@ function cbSwitchSpoilerB(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
     -- Open cover
-    fs2020_variable_write("L:VC_Spoiler_B_SW_Cover_VAL", "number", 10)
+    msfs_variable_write("L:VC_Spoiler_B_SW_Cover_VAL", "number", 10)
     return
   end
   -- Toggle spoiler B position
@@ -739,7 +739,7 @@ function cbSwitchSpoilerB(switch, dir)
   else
     currentSpoilerBPosition = 10 -- OFF
   end
-  fs2020_variable_write("L:VC_Spoiler_B_SW_VAL", "number", currentSpoilerBPosition)
+  msfs_variable_write("L:VC_Spoiler_B_SW_VAL", "number", currentSpoilerBPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -748,7 +748,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Spoiler_B_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Spoiler_B_SW_VAL", "number", function(v)
   currentSpoilerBPosition = v
   SetSwitchPosition(gSwitchSpoilerB, math.floor(v/10)+1)
 end)
@@ -777,14 +777,14 @@ function cbGuardSpoilerB(switch, dir)
     else
       currentSpoilerBPosition = 10 -- OFF
     end
-    fs2020_variable_write("L:VC_Spoiler_B_SW_VAL", "number", currentSpoilerBPosition)
+    msfs_variable_write("L:VC_Spoiler_B_SW_VAL", "number", currentSpoilerBPosition)
     return
   end
   -- Toggle guard cover
   if dir>0 then
-    fs2020_variable_write("L:VC_Spoiler_B_SW_Cover_VAL", "number", 10) -- Open
+    msfs_variable_write("L:VC_Spoiler_B_SW_Cover_VAL", "number", 10) -- Open
   else
-    fs2020_variable_write("L:VC_Spoiler_B_SW_Cover_VAL", "number", 0)  -- Close
+    msfs_variable_write("L:VC_Spoiler_B_SW_Cover_VAL", "number", 0)  -- Close
   end
 end
 
@@ -796,7 +796,7 @@ gSwitchSpoilerB = AddBlackVerGuardSwitch(116, 254, false, true, true, cbSwitchSp
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Spoiler_B_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Spoiler_B_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchSpoilerB, v==0)
 end)
 
@@ -823,7 +823,7 @@ function cbSwitchAlternateFlapsMaster(switch, dir)
   local s = gSwitch[switch]
   if s.closed then
     -- Open cover
-    fs2020_variable_write("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", 10)
+    msfs_variable_write("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", 10)
     return
   end
   if dir>0 then
@@ -831,14 +831,14 @@ function cbSwitchAlternateFlapsMaster(switch, dir)
   else
     currentAlternateFlapsMasterPosition = math.max(currentAlternateFlapsMasterPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Altn_Flap_Master_SW_VAL", "number", currentAlternateFlapsMasterPosition)
+  msfs_variable_write("L:VC_Altn_Flap_Master_SW_VAL", "number", currentAlternateFlapsMasterPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
 -- msfs_variable_subscribe("L:switch_73_73X", "number", function(v) SetSwitchPosition(gSwitchAlternateFlapsMaster, toint(math.floor(v/50)+1)) end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Altn_Flap_Master_SW_VAL", "number", function(v) 
+msfs_variable_subscribe("L:VC_Altn_Flap_Master_SW_VAL", "number", function(v) 
   currentAlternateFlapsMasterPosition = v
   SetSwitchPosition(gSwitchAlternateFlapsMaster, toint(math.floor(v/10)+1)) 
 end)
@@ -863,14 +863,14 @@ function cbGuardAlternateFlapsMaster(switch, dir)
   if not s.closed and dir>0 then
     -- Increment switch when cover is open
     currentAlternateFlapsMasterPosition = math.min(currentAlternateFlapsMasterPosition + 10, 20)
-    fs2020_variable_write("L:VC_Altn_Flap_Master_SW_VAL", "number", currentAlternateFlapsMasterPosition)
+    msfs_variable_write("L:VC_Altn_Flap_Master_SW_VAL", "number", currentAlternateFlapsMasterPosition)
     return
   end
   -- Toggle guard cover
   if dir>0 then
-    fs2020_variable_write("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", 10) -- Open
+    msfs_variable_write("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", 10) -- Open
   else
-    fs2020_variable_write("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", 0)  -- Close
+    msfs_variable_write("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", 0)  -- Close
   end
 end
 
@@ -881,7 +881,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Altn_Flap_Master_SW_Cover_VAL", "number", function(v)
   CloseGuard(gSwitchAlternateFlapsMaster, v==0)
   -- if v==1 then SetSwitchPosition(gSwitchAlternateFlapsMaster, 1) end -- default position after opening the guard
 end)
@@ -908,15 +908,15 @@ local currentAlternateFlapsUpDownPosition = 10 -- Default to middle position (10
 function cbSwitchAlternateFlapsUpDown(switch, dir)
   if dir > 0 then
     currentAlternateFlapsUpDownPosition = math.min(currentAlternateFlapsUpDownPosition + 10, 20)
-    fs2020_variable_write("L:VC_Altn_Flap_SW_VAL", "number", currentAlternateFlapsUpDownPosition)
+    msfs_variable_write("L:VC_Altn_Flap_SW_VAL", "number", currentAlternateFlapsUpDownPosition)
     -- Auto-return to center after 300ms
     timer_start(300, 300, 1, function() 
       currentAlternateFlapsUpDownPosition = 10
-      fs2020_variable_write("L:VC_Altn_Flap_SW_VAL", "number", currentAlternateFlapsUpDownPosition)
+      msfs_variable_write("L:VC_Altn_Flap_SW_VAL", "number", currentAlternateFlapsUpDownPosition)
     end)
   else
     currentAlternateFlapsUpDownPosition = math.max(currentAlternateFlapsUpDownPosition - 10, 0)
-    fs2020_variable_write("L:VC_Altn_Flap_SW_VAL", "number", currentAlternateFlapsUpDownPosition)
+    msfs_variable_write("L:VC_Altn_Flap_SW_VAL", "number", currentAlternateFlapsUpDownPosition)
   end
 end
 
@@ -926,7 +926,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Altn_Flap_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Altn_Flap_SW_VAL", "number", function(v)
   currentAlternateFlapsUpDownPosition = v
   SetSwitchPosition(gSwitchAlternateFlapsUpDown, math.floor(v/10)+1)
 end)
@@ -952,7 +952,7 @@ function cbSwitchYawDamper(switch, dir)
   else
     currentYawDamperPosition = math.max(currentYawDamperPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Yaw_Damper_SW_VAL", "number", currentYawDamperPosition)
+  msfs_variable_write("L:VC_Yaw_Damper_SW_VAL", "number", currentYawDamperPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -961,7 +961,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Yaw_Damper_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Yaw_Damper_SW_VAL", "number", function(v)
   currentYawDamperPosition = v
   SetSwitchPosition(gSwitchYawDamper, math.floor(v/10)+1)
 end)
@@ -1028,7 +1028,7 @@ function AddLight(lvar, img, x, y, text1, text2)
     -- end)
     
     -- ================ CONVERTED iFLY CODE ================
-    fs2020_variable_subscribe(lvar, "number", function(v)
+    msfs_variable_subscribe(lvar, "number", function(v)
       if v == 0 then
         v = .1
       else

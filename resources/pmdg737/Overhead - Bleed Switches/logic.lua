@@ -19,9 +19,9 @@
 
 img_add_fullscreen("bg.png")
 
-img_add_fullscreen("gauge-numbers.png")
-img_add_fullscreen("gauge-frame.png")
-img_add_fullscreen("gauge-front-text.png")
+img_add("gauge-numbers.png",60,1,400,550)
+img_add("gauge-frame.png",60,1,400,550)
+img_add("gauge-front-text.png",60,1,400,550)
 
 --------------- 
 -- =============================== switch lib functions ====================
@@ -210,11 +210,11 @@ end
 
 --------------------
 
------------------------ Recirc fan switch --------------------------
+----------------------- Recirc fan switches --------------------------
 
-local gSwitchRecircFan
+local gSwitchRecircFanLeft, gSwitchRecircFanRight
 
-function cbSwitchRecircFan(switch, dir)
+function cbSwitchRecircFanLeft(switch, dir)
   -- ORIGINAL PMDG CODE:
   -- if dir > 0 then
   --   msfs_event("ROTOR_BRAKE", 19601)
@@ -222,23 +222,45 @@ function cbSwitchRecircFan(switch, dir)
   --   msfs_event("ROTOR_BRAKE", 19602)
   -- end
   
-  -- iFly Conversion:
+  -- iFly Conversion - Left Recirc Fan:
   if dir > 0 then
-    fs2020_variable_write("L:VC_AIRSYSTEM_RECIRC_FAN_SW_VAL", "number", 20) -- ON
+    msfs_variable_write("L:VC_RecircFan_L_SW_VAL", "number", 20) -- ON
   else
-    fs2020_variable_write("L:VC_AIRSYSTEM_RECIRC_FAN_SW_VAL", "number", 0) -- OFF
+    msfs_variable_write("L:VC_RecircFan_L_SW_VAL", "number", 0) -- OFF
+  end
+end
+
+function cbSwitchRecircFanRight(switch, dir)
+  -- ORIGINAL PMDG CODE:
+  -- if dir > 0 then
+  --   msfs_event("ROTOR_BRAKE", 19601)
+  -- else
+  --   msfs_event("ROTOR_BRAKE", 19602)
+  -- end
+  
+  -- iFly Conversion - Right Recirc Fan:
+  if dir > 0 then
+    msfs_variable_write("L:VC_RecircFan_R_SW_VAL", "number", 20) -- ON
+  else
+    msfs_variable_write("L:VC_RecircFan_R_SW_VAL", "number", 0) -- OFF
   end
 end
 
 -- ORIGINAL PMDG CODE:
 -- msfs_variable_subscribe("L:switch_196_73X", "number", function(v)
 
--- iFly Conversion:
-fs2020_variable_subscribe("L:VC_AIRSYSTEM_RECIRC_FAN_SW_VAL", "number", function(v)
-  SetSwitchPosition(gSwitchRecircFan, math.floor(v/10)+1)
+-- iFly Conversion - Left Recirc Fan:
+msfs_variable_subscribe("L:VC_RecircFan_L_SW_VAL", "number", function(v)
+  SetSwitchPosition(gSwitchRecircFanLeft, math.floor(v/10)+1)
 end)
 
-gSwitchRecircFan = AddVerticalSwitch(gImgVertSwitch, 280, 85, true, false, true, cbSwitchRecircFan)
+-- iFly Conversion - Right Recirc Fan:
+msfs_variable_subscribe("L:VC_RecircFan_R_SW_VAL", "number", function(v)
+  SetSwitchPosition(gSwitchRecircFanRight, math.floor(v/10)+1)
+end)
+
+gSwitchRecircFanLeft = AddVerticalSwitch(gImgVertSwitch, 130, 85, true, false, true, cbSwitchRecircFanLeft)
+gSwitchRecircFanRight = AddVerticalSwitch(gImgVertSwitch, 300, 85, true, false, true, cbSwitchRecircFanRight)
 
 ---
 
@@ -486,7 +508,10 @@ end
 
 function DrawAllTexts()
   local style = gFontPrintBig..";color:"..gColorPrint.."; halign:left"
-  PrintText("RECIRC FAN", 185, 74, style, 24)
+  PrintText("L RECIRC", 45, 74, style, 24)
+  PrintText("FAN", 70, 95, style, 24)
+  PrintText("R RECIRC", 245, 74, style, 24)
+  PrintText("FAN", 270, 95, style, 24)
   
   PrintText("ISOL", 186, 154, style, 24)
   PrintText("VALVE", 180, 175, style, 24)
@@ -645,6 +670,7 @@ AddLight("L:VC_CABIN_ALTITUDE_MANUAL_LIGHT_VAL", "light-blue-2.png", 287, 490,  
 
 ---------------------- L Pack switch ----------------
 local gSwitchLPack
+local currentLPackPosition = 10 -- 0=OFF, 10=AUTO, 20=HIGH
 
 function cbSwitchLPack(switch, dir)
   -- ORIGINAL PMDG CODE:
@@ -654,22 +680,36 @@ function cbSwitchLPack(switch, dir)
   --   msfs_event("ROTOR_BRAKE", 20002)
   -- end
   
-  -- iFly Conversion:
-  local currentPos = 10 -- Default to auto/middle position
+  -- iFly Conversion - 3-position switch: OFF/AUTO/HIGH
   if dir > 0 then
-    currentPos = 20 -- HIGH
+    if currentLPackPosition == 0 then
+      currentLPackPosition = 10 -- OFF -> AUTO
+    elseif currentLPackPosition == 10 then
+      currentLPackPosition = 20 -- AUTO -> HIGH
+    end
   elseif dir < 0 then
-    currentPos = 0 -- OFF
+    if currentLPackPosition == 20 then
+      currentLPackPosition = 10 -- HIGH -> AUTO
+    elseif currentLPackPosition == 10 then
+      currentLPackPosition = 0 -- AUTO -> OFF
+    end
   end
-  fs2020_variable_write("L:VC_PACK_1_SW_VAL", "number", currentPos)
+  msfs_variable_write("L:VC_Pack_1_SW_VAL", "number", currentLPackPosition)
 end
 
 -- ORIGINAL PMDG CODE:
 -- msfs_variable_subscribe("L:switch_200_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_PACK_1_SW_VAL", "number", function(v)
-  SetSwitchPosition(gSwitchLPack, math.floor(v/10)+1)
+msfs_variable_subscribe("L:VC_Pack_1_SW_VAL", "number", function(v)
+  currentLPackPosition = v
+  if v == 0 then
+    SetSwitchPosition(gSwitchLPack, 1) -- OFF position (bottom)
+  elseif v == 10 then
+    SetSwitchPosition(gSwitchLPack, 2) -- AUTO position (middle)
+  elseif v == 20 then
+    SetSwitchPosition(gSwitchLPack, 3) -- HIGH position (top)
+  end
 end)
 
 gSwitchLPack = AddVerticalSwitch(gImgVertSwitch, 94, 144, true, true, true, cbSwitchLPack)
@@ -677,6 +717,7 @@ gSwitchLPack = AddVerticalSwitch(gImgVertSwitch, 94, 144, true, true, true, cbSw
 -------------------------- Isolation valve switch ------------------
 
 local gSwitchIsolationValve
+local currentIsolationValvePosition = 10 -- 0=CLOSE, 10=AUTO, 20=OPEN
 
 function cbSwitchIsolationValve(switch, dir)
   -- ORIGINAL PMDG CODE:
@@ -686,22 +727,36 @@ function cbSwitchIsolationValve(switch, dir)
   --   msfs_event("ROTOR_BRAKE", 20202)
   -- end
   
-  -- iFly Conversion:
-  local currentPos = 10 -- Default to auto/middle position
+  -- iFly Conversion - 3-position switch: CLOSE/AUTO/OPEN
   if dir > 0 then
-    currentPos = 20 -- OPEN
+    if currentIsolationValvePosition == 0 then
+      currentIsolationValvePosition = 10 -- CLOSE -> AUTO
+    elseif currentIsolationValvePosition == 10 then
+      currentIsolationValvePosition = 20 -- AUTO -> OPEN
+    end
   elseif dir < 0 then
-    currentPos = 0 -- CLOSE
+    if currentIsolationValvePosition == 20 then
+      currentIsolationValvePosition = 10 -- OPEN -> AUTO
+    elseif currentIsolationValvePosition == 10 then
+      currentIsolationValvePosition = 0 -- AUTO -> CLOSE
+    end
   end
-  fs2020_variable_write("L:VC_ISOLATION_VALVE_SW_VAL", "number", currentPos)
+  msfs_variable_write("L:VC_ISOLATION_VALVE_SW_VAL", "number", currentIsolationValvePosition)
 end
 
 -- ORIGINAL PMDG CODE:
 -- msfs_variable_subscribe("L:switch_202_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_ISOLATION_VALVE_SW_VAL", "number", function(v)
-  SetSwitchPosition(gSwitchIsolationValve, math.floor(v/10)+1)
+msfs_variable_subscribe("L:VC_ISOLATION_VALVE_SW_VAL", "number", function(v)
+  currentIsolationValvePosition = v
+  if v == 0 then
+    SetSwitchPosition(gSwitchIsolationValve, 1) -- CLOSE position (bottom)
+  elseif v == 10 then
+    SetSwitchPosition(gSwitchIsolationValve, 2) -- AUTO position (middle)
+  elseif v == 20 then
+    SetSwitchPosition(gSwitchIsolationValve, 3) -- OPEN position (top)
+  end
 end)
 
 gSwitchIsolationValve = AddVerticalSwitch(gImgVertSwitch, 226, 180, true, true, true, cbSwitchIsolationValve)
@@ -709,6 +764,7 @@ gSwitchIsolationValve = AddVerticalSwitch(gImgVertSwitch, 226, 180, true, true, 
 ----------------- R Pack switch ----------------------
 
 local gSwitchRPack
+local currentRPackPosition = 10 -- 0=OFF, 10=AUTO, 20=HIGH
 
 function cbSwitchRPack(switch, dir)
   -- ORIGINAL PMDG CODE:
@@ -718,22 +774,36 @@ function cbSwitchRPack(switch, dir)
   --   msfs_event("ROTOR_BRAKE", 20102)
   -- end
   
-  -- iFly Conversion:
-  local currentPos = 10 -- Default to auto/middle position
+  -- iFly Conversion - 3-position switch: OFF/AUTO/HIGH
   if dir > 0 then
-    currentPos = 20 -- HIGH
+    if currentRPackPosition == 0 then
+      currentRPackPosition = 10 -- OFF -> AUTO
+    elseif currentRPackPosition == 10 then
+      currentRPackPosition = 20 -- AUTO -> HIGH
+    end
   elseif dir < 0 then
-    currentPos = 0 -- OFF
+    if currentRPackPosition == 20 then
+      currentRPackPosition = 10 -- HIGH -> AUTO
+    elseif currentRPackPosition == 10 then
+      currentRPackPosition = 0 -- AUTO -> OFF
+    end
   end
-  fs2020_variable_write("L:VC_PACK_2_SW_VAL", "number", currentPos)
+  msfs_variable_write("L:VC_Pack_2_SW_VAL", "number", currentRPackPosition)
 end
 
 -- ORIGINAL PMDG CODE:
 -- msfs_variable_subscribe("L:switch_201_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_PACK_2_SW_VAL", "number", function(v)
-  SetSwitchPosition(gSwitchRPack, math.floor(v/10)+1)
+msfs_variable_subscribe("L:VC_Pack_2_SW_VAL", "number", function(v)
+  currentRPackPosition = v
+  if v == 0 then
+    SetSwitchPosition(gSwitchRPack, 1) -- OFF position (bottom)
+  elseif v == 10 then
+    SetSwitchPosition(gSwitchRPack, 2) -- AUTO position (middle)
+  elseif v == 20 then
+    SetSwitchPosition(gSwitchRPack, 3) -- HIGH position (top)
+  end
 end)
 
 gSwitchRPack = AddVerticalSwitch(gImgVertSwitch, 357, 144, true, true, true, cbSwitchRPack)
@@ -752,9 +822,9 @@ function cbSwitchBleed1(switch, dir)
   
   -- iFly Conversion:
   if dir > 0 then
-    fs2020_variable_write("L:VC_Engine_1_Bleed_Air_SW_VAL", "number", 10) -- ON
+    msfs_variable_write("L:VC_Engine_1_Bleed_Air_SW_VAL", "number", 10) -- ON
   else
-    fs2020_variable_write("L:VC_Engine_1_Bleed_Air_SW_VAL", "number", 0) -- OFF
+    msfs_variable_write("L:VC_Engine_1_Bleed_Air_SW_VAL", "number", 0) -- OFF
   end
 end
 
@@ -762,7 +832,7 @@ end
 -- msfs_variable_subscribe("L:switch_210_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_Engine_1_Bleed_Air_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Engine_1_Bleed_Air_SW_VAL", "number", function(v)
   SetSwitchPosition(gSwitchBleed1, math.floor(v/10)+1)
 end)
 
@@ -782,9 +852,9 @@ function cbSwitchApu(switch, dir)
   
   -- iFly Conversion:
   if dir > 0 then
-    fs2020_variable_write("L:VC_APU_Bleed_Air_SW_VAL", "number", 10) -- ON
+    msfs_variable_write("L:VC_APU_Bleed_Air_SW_VAL", "number", 10) -- ON
   else
-    fs2020_variable_write("L:VC_APU_Bleed_Air_SW_VAL", "number", 0) -- OFF
+    msfs_variable_write("L:VC_APU_Bleed_Air_SW_VAL", "number", 0) -- OFF
   end
 end
 
@@ -792,7 +862,7 @@ end
 -- msfs_variable_subscribe("L:switch_211_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_APU_Bleed_Air_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_APU_Bleed_Air_SW_VAL", "number", function(v)
   SetSwitchPosition(gSwitchApu, math.floor(v/10)+1)
 end)
 
@@ -812,9 +882,9 @@ function cbSwitchBleed2(switch, dir)
   
   -- iFly Conversion:
   if dir > 0 then
-    fs2020_variable_write("L:VC_Engine_2_Bleed_Air_SW_VAL", "number", 10) -- ON
+    msfs_variable_write("L:VC_Engine_2_Bleed_Air_SW_VAL", "number", 10) -- ON
   else
-    fs2020_variable_write("L:VC_Engine_2_Bleed_Air_SW_VAL", "number", 0) -- OFF
+    msfs_variable_write("L:VC_Engine_2_Bleed_Air_SW_VAL", "number", 0) -- OFF
   end
 end
 
@@ -822,7 +892,7 @@ end
 -- msfs_variable_subscribe("L:switch_212_73X", "number", function(v)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_Engine_2_Bleed_Air_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Engine_2_Bleed_Air_SW_VAL", "number", function(v)
   SetSwitchPosition(gSwitchBleed2, math.floor(v/10)+1)
 end)
 
@@ -945,10 +1015,10 @@ end
 
 local gImgLeftNeedle, gImgRightNeedle
 
-gImgRightNeedle = img_add("needle-right.png", 126, 90, 20, 76)
-gImgLeftNeedle = img_add("needle-left.png", 126, 90, 20, 76)
+gImgRightNeedle = img_add("needle-right.png", 190, 90, 20, 76)
+gImgLeftNeedle = img_add("needle-left.png", 190, 90, 20, 76)
 
-img_add("needle-base.png", 125, 116, 20, 20)
+img_add("needle-base.png", 190, 116, 20, 20)
 
 -- ORIGINAL PMDG CODE:
 -- msfs_variable_subscribe("L:switch_197_73X", "number", function(v)
@@ -960,11 +1030,11 @@ img_add("needle-base.png", 125, 116, 20, 20)
 -- end)
 
 -- iFly Conversion:
-fs2020_variable_subscribe("L:VC_AIRSYSTEM_DUCT_PRESSURE_L_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_AIRSYSTEM_DUCT_PRESSURE_L_VAL", "number", function(v)
   img_rotate(gImgLeftNeedle, v/10 /80*246+146) 
 end)
 
-fs2020_variable_subscribe("L:VC_AIRSYSTEM_DUCT_PRESSURE_R_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_AIRSYSTEM_DUCT_PRESSURE_R_VAL", "number", function(v)
   img_rotate(gImgRightNeedle, v/10 /80*246+146)
 end)
 
@@ -980,7 +1050,7 @@ function cbButtonOverheatTestPressed()
   -- msfs_event("ROTOR_BRAKE", 19901)
   
   -- iFly Conversion:
-  fs2020_variable_write("L:VC_AIRSYSTEM_OVHT_TEST_SW_VAL", "number", 10)
+  msfs_variable_write("L:VC_AIRSYSTEM_OVHT_TEST_SW_VAL", "number", 10)
 end
 
 function cbButtonOverheatTestReleased()
@@ -1000,7 +1070,7 @@ function cbButtonTripResetPressed()
   -- msfs_event("ROTOR_BRAKE", 20901)
   
   -- iFly Conversion:
-  fs2020_variable_write("L:VC_AIRSYSTEM_TRIP_RESET_SW_VAL", "number", 10)
+  msfs_variable_write("L:VC_AIRSYSTEM_TRIP_RESET_SW_VAL", "number", 10)
 end
 
 function cbButtonTripResetReleased()

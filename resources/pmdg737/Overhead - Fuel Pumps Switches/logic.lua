@@ -210,7 +210,7 @@ function cbSwitchFuelPumpLeftAft(switch, dir)
   else
     currentLeftAftPosition = math.max(currentLeftAftPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Fuel_L_AFT_SW_VAL", "number", currentLeftAftPosition)
+  msfs_variable_write("L:VC_Fuel_L_AFT_SW_VAL", "number", currentLeftAftPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -219,7 +219,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Fuel_L_AFT_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Fuel_L_AFT_SW_VAL", "number", function(v)
   currentLeftAftPosition = v
   SetSwitchPosition(gSwitchFuelPumpLeftAft, math.floor(v/10)+1)
 end)
@@ -245,7 +245,7 @@ function cbSwitchFuelPumpLeftFwd(switch, dir)
   else
     currentLeftFwdPosition = math.max(currentLeftFwdPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Fuel_L_FWD_SW_VAL", "number", currentLeftFwdPosition)
+  msfs_variable_write("L:VC_Fuel_L_FWD_SW_VAL", "number", currentLeftFwdPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -254,7 +254,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Fuel_L_FWD_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Fuel_L_FWD_SW_VAL", "number", function(v)
   currentLeftFwdPosition = v
   SetSwitchPosition(gSwitchFuelPumpLeftFwd, math.floor(v/10)+1)
 end)
@@ -280,7 +280,7 @@ function cbSwitchFuelPumpRightFwd(switch, dir)
   else
     currentRightFwdPosition = math.max(currentRightFwdPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Fuel_R_FWD_SW_VAL", "number", currentRightFwdPosition)
+  msfs_variable_write("L:VC_Fuel_R_FWD_SW_VAL", "number", currentRightFwdPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -289,7 +289,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Fuel_R_FWD_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Fuel_R_FWD_SW_VAL", "number", function(v)
   currentRightFwdPosition = v
   SetSwitchPosition(gSwitchFuelPumpRightFwd, math.floor(v/10)+1)
 end)
@@ -315,7 +315,7 @@ function cbSwitchFuelPumpRightAft(switch, dir)
   else
     currentRightAftPosition = math.max(currentRightAftPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Fuel_R_AFT_SW_VAL", "number", currentRightAftPosition)
+  msfs_variable_write("L:VC_Fuel_R_AFT_SW_VAL", "number", currentRightAftPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -324,7 +324,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Fuel_R_AFT_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Fuel_R_AFT_SW_VAL", "number", function(v)
   currentRightAftPosition = v
   SetSwitchPosition(gSwitchFuelPumpRightAft, math.floor(v/10)+1)
 end)
@@ -350,7 +350,7 @@ function cbSwitchFuelPumpCenterLeft(switch, dir)
   else
     currentCenterLeftPosition = math.max(currentCenterLeftPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Fuel_CENTER_L_SW_VAL", "number", currentCenterLeftPosition)
+  msfs_variable_write("L:VC_Fuel_CENTER_L_SW_VAL", "number", currentCenterLeftPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -359,7 +359,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Fuel_CENTER_L_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Fuel_CENTER_L_SW_VAL", "number", function(v)
   currentCenterLeftPosition = v
   SetSwitchPosition(gSwitchFuelPumpCenterLeft, math.floor(v/10)+1)
 end)
@@ -385,7 +385,7 @@ function cbSwitchFuelPumpCenterRight(switch, dir)
   else
     currentCenterRightPosition = math.max(currentCenterRightPosition - 10, 0)
   end
-  fs2020_variable_write("L:VC_Fuel_CENTER_R_SW_VAL", "number", currentCenterRightPosition)
+  msfs_variable_write("L:VC_Fuel_CENTER_R_SW_VAL", "number", currentCenterRightPosition)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -394,7 +394,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_Fuel_CENTER_R_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Fuel_CENTER_R_SW_VAL", "number", function(v)
   currentCenterRightPosition = v
   SetSwitchPosition(gSwitchFuelPumpCenterRight, math.floor(v/10)+1)
 end)
@@ -732,7 +732,7 @@ function AddLight(lvar, img, x, y, text1, text2)
     -- end)
     
     -- ================ CONVERTED iFLY CODE ================
-    fs2020_variable_subscribe(lvar, "number", function(v)
+    msfs_variable_subscribe(lvar, "number", function(v)
       if v == 0 then
         v = .1
       else
@@ -818,22 +818,36 @@ function DrawLine(x, y, x1, y1)
 end
 
 function DrawCrossfeedLine()
-  if gStateCrossfeedSwitch == 100 then
-    DrawLine(35, 10, 35, 60)
-  else
+  if gStateCrossfeedSwitch == 10 then -- iFly uses 10 for OPEN instead of 100
     DrawLine(10, 35, 60, 35)
+  else -- gStateCrossfeedSwitch == 0 for CLOSED
+    
+    DrawLine(35, 10, 35, 60)
   end
 end
 
 
 local gCanvasCrossfeedSwitch = canvas_add(168, 190, 70, 70, DrawCrossfeedLine)
 
-msfs_variable_subscribe("L:switch_49_73X", "number", function(v)
+-- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
+-- msfs_variable_subscribe("L:switch_49_73X", "number", function(v)
+--   gStateCrossfeedSwitch = v
+--   if v==100 then
+--     img_rotate(gImgCrossfeedSwitch, 0)
+--   else
+--     img_rotate(gImgCrossfeedSwitch, 90)
+--   end
+--   canvas_draw(gCanvasCrossfeedSwitch, DrawCrossfeedLine)
+-- end)
+
+-- ================ CONVERTED iFLY CODE ================
+msfs_variable_subscribe("L:VC_Fuel_Crossfeed_SW_VAL", "number", function(v)
   gStateCrossfeedSwitch = v
-  if v==100 then
-    img_rotate(gImgCrossfeedSwitch, 0)
-  else
-    img_rotate(gImgCrossfeedSwitch, 90)
+  currentCrossfeedPosition = v -- Keep track of current position for button logic
+  if v == 10 then -- iFly uses 10 for OPEN - should be vertical (0 degrees)
+    img_rotate(gImgCrossfeedSwitch, 90) -- Corrected: OPEN = vertical = 90 degrees
+  else -- v == 0 for CLOSED - should be horizontal (90 degrees)
+    img_rotate(gImgCrossfeedSwitch, 0) -- Corrected: CLOSED = horizontal = 0 degrees
   end
   canvas_draw(gCanvasCrossfeedSwitch, DrawCrossfeedLine)
 end)
@@ -851,7 +865,7 @@ button_add(nil, nil, 168, 190, 70, 70, function()
   else
     currentCrossfeedPosition = 0
   end
-  fs2020_variable_write("L:VC_Fuel_Crossfeed_SW_VAL", "number", currentCrossfeedPosition)
+  msfs_variable_write("L:VC_Fuel_Crossfeed_SW_VAL", "number", currentCrossfeedPosition)
 end)
 
 -- =========================== Fuel temp gauge =======================

@@ -124,17 +124,37 @@ end
 ---------------------- Wing Anti-Ice Switch ----------------
 
 local gSwitchWingAntiIce
+local currentWingAntiIcePosition = 0 -- 0=OFF, 10=ON
+
+-- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
+-- function cbSwitchWingAntiIce(switch, dir)
+--   if dir > 0 then
+--     msfs_event("ROTOR_BRAKE", 15601)
+--   else
+--     msfs_event("ROTOR_BRAKE", 15602)
+--   end
+-- end
+-- 
+-- msfs_variable_subscribe("L:switch_156_73X", "number", function(v)
+--   SetSwitchPosition(gSwitchWingAntiIce, math.floor(v/50)+1)
+-- end)
 
 function cbSwitchWingAntiIce(switch, dir)
   if dir > 0 then
-    msfs_event("ROTOR_BRAKE", 15601)
+    currentWingAntiIcePosition = 10 -- ON
   else
-    msfs_event("ROTOR_BRAKE", 15602)
+    currentWingAntiIcePosition = 0 -- OFF
   end
+  msfs_variable_write("L:VC_Wing_AntiIce_SW_VAL", "number", currentWingAntiIcePosition)
 end
 
-msfs_variable_subscribe("L:switch_156_73X", "number", function(v)
-  SetSwitchPosition(gSwitchWingAntiIce, math.floor(v/50)+1)
+msfs_variable_subscribe("L:VC_Wing_AntiIce_SW_VAL", "number", function(v)
+  currentWingAntiIcePosition = v
+  if v == 0 then
+    SetSwitchPosition(gSwitchWingAntiIce, 1) -- OFF position
+  else
+    SetSwitchPosition(gSwitchWingAntiIce, 3) -- ON position
+  end
 end)
 
 gSwitchWingAntiIce = AddVerticalSwitch(gImgVertSwitch, 138, 158, true, false, true, cbSwitchWingAntiIce)
@@ -142,17 +162,37 @@ gSwitchWingAntiIce = AddVerticalSwitch(gImgVertSwitch, 138, 158, true, false, tr
 ---------------------- Eng 1 Anti-Ice Switch ----------------
 
 local gSwitchEng1AntiIce
+local currentEng1AntiIcePosition = 0 -- 0=OFF, 10=ON
+
+-- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
+-- function cbSwitchEng1AntiIce(switch, dir)
+--   if dir > 0 then
+--     msfs_event("ROTOR_BRAKE", 15701)
+--   else
+--     msfs_event("ROTOR_BRAKE", 15702)
+--   end
+-- end
+-- 
+-- msfs_variable_subscribe("L:switch_157_73X", "number", function(v)
+--   SetSwitchPosition(gSwitchEng1AntiIce, math.floor(v/50)+1)
+-- end)
 
 function cbSwitchEng1AntiIce(switch, dir)
   if dir > 0 then
-    msfs_event("ROTOR_BRAKE", 15701)
+    currentEng1AntiIcePosition = 10 -- ON
   else
-    msfs_event("ROTOR_BRAKE", 15702)
+    currentEng1AntiIcePosition = 0 -- OFF
   end
+  msfs_variable_write("L:VC_Engine_1_AntiIce_SW_VAL", "number", currentEng1AntiIcePosition)
 end
 
-msfs_variable_subscribe("L:switch_157_73X", "number", function(v)
-  SetSwitchPosition(gSwitchEng1AntiIce, math.floor(v/50)+1)
+msfs_variable_subscribe("L:VC_Engine_1_AntiIce_SW_VAL", "number", function(v)
+  currentEng1AntiIcePosition = v
+  if v == 0 then
+    SetSwitchPosition(gSwitchEng1AntiIce, 1) -- OFF position
+  else
+    SetSwitchPosition(gSwitchEng1AntiIce, 3) -- ON position
+  end
 end)
 
 gSwitchEng1AntiIce = AddVerticalSwitch(gImgVertSwitch, 277, 165, true, false, true, cbSwitchEng1AntiIce)
@@ -160,17 +200,37 @@ gSwitchEng1AntiIce = AddVerticalSwitch(gImgVertSwitch, 277, 165, true, false, tr
 ---------------------- Eng 2 Anti-Ice Switch ----------------
 
 local gSwitchEng2AntiIce
+local currentEng2AntiIcePosition = 0 -- 0=OFF, 10=ON
+
+-- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
+-- function cbSwitchEng2AntiIce(switch, dir)
+--   if dir > 0 then
+--     msfs_event("ROTOR_BRAKE", 15801)
+--   else
+--     msfs_event("ROTOR_BRAKE", 15802)
+--   end
+-- end
+-- 
+-- msfs_variable_subscribe("L:switch_158_73X", "number", function(v)
+--   SetSwitchPosition(gSwitchEng2AntiIce, math.floor(v/50)+1)
+-- end)
 
 function cbSwitchEng2AntiIce(switch, dir)
   if dir > 0 then
-    msfs_event("ROTOR_BRAKE", 15801)
+    currentEng2AntiIcePosition = 10 -- ON
   else
-    msfs_event("ROTOR_BRAKE", 15802)
+    currentEng2AntiIcePosition = 0 -- OFF
   end
+  msfs_variable_write("L:VC_Engine_2_AntiIce_SW_VAL", "number", currentEng2AntiIcePosition)
 end
 
-msfs_variable_subscribe("L:switch_158_73X", "number", function(v)
-  SetSwitchPosition(gSwitchEng2AntiIce, math.floor(v/50)+1)
+msfs_variable_subscribe("L:VC_Engine_2_AntiIce_SW_VAL", "number", function(v)
+  currentEng2AntiIcePosition = v
+  if v == 0 then
+    SetSwitchPosition(gSwitchEng2AntiIce, 1) -- OFF position
+  else
+    SetSwitchPosition(gSwitchEng2AntiIce, 3) -- ON position
+  end
 end)
 
 gSwitchEng2AntiIce = AddVerticalSwitch(gImgVertSwitch, 356, 165, true, false, true, cbSwitchEng2AntiIce)
@@ -394,13 +454,23 @@ end
 
 -- ======================== add lights ======================
 
-AddLight("L:switch_150_73X", "light-amber-1.png", 201, 36,  "COWL", "ANTI-ICE")
-AddLight("L:switch_151_73X", "light-amber-2.png", 287, 36,  "COWL", "ANTI-ICE")
+-- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
+-- AddLight("L:switch_150_73X", "light-amber-1.png", 201, 36,  "COWL", "ANTI-ICE")
+-- AddLight("L:switch_151_73X", "light-amber-2.png", 287, 36,  "COWL", "ANTI-ICE")
+-- 
+-- AddLight("L:switch_152_73X", "light-blue-1.png", 29, 94,  "L VALVE", "OPEN")
+-- AddLight("L:switch_153_73X", "light-blue-3.png", 115, 94,  "R VALVE", "OPEN")
+-- AddLight("L:switch_154_73X", "light-blue-3.png", 201, 94,  "COWL VALV", "OPEN")
+-- AddLight("L:switch_155_73X", "light-blue-2.png", 287, 94,  "COWL VALV", "OPEN")
 
-AddLight("L:switch_152_73X", "light-blue-1.png", 29, 94,  "L VALVE", "OPEN")
-AddLight("L:switch_153_73X", "light-blue-3.png", 115, 94,  "R VALVE", "OPEN")
-AddLight("L:switch_154_73X", "light-blue-3.png", 201, 94,  "COWL VALV", "OPEN")
-AddLight("L:switch_155_73X", "light-blue-2.png", 287, 94,  "COWL VALV", "OPEN")
+-- iFly 737 MAX 8 Light Variables
+AddLight("L:VC_ANTIICE_LIGHT_COWL_ANTI_ICE_1_VAL", "light-amber-1.png", 201, 36,  "COWL", "ANTI-ICE")
+AddLight("L:VC_ANTIICE_LIGHT_COWL_ANTI_ICE_2_VAL", "light-amber-2.png", 287, 36,  "COWL", "ANTI-ICE")
+
+AddLight("L:VC_ANTIICE_LIGHT_L_ALPHA_VANE_VAL", "light-blue-1.png", 29, 94,  "L VALVE", "OPEN")
+AddLight("L:VC_ANTIICE_LIGHT_R_ALPHA_VANE_VAL", "light-blue-3.png", 115, 94,  "R VALVE", "OPEN")
+AddLight("L:VC_ANTIICE_LIGHT_COWL_VALVE_1_VAL", "light-blue-3.png", 201, 94,  "COWL VALV", "OPEN")
+AddLight("L:VC_ANTIICE_LIGHT_COWL_VALVE_2_VAL", "light-blue-2.png", 287, 94,  "COWL VALV", "OPEN")
 
 -- ================== illumination ========================
 

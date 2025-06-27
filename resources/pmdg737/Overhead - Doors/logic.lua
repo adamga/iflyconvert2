@@ -121,7 +121,7 @@ function AddLight(lvar, img, x, y, text1, text2)
     -- end)
     
     -- ================ CONVERTED iFLY CODE ================
-    fs2020_variable_subscribe(lvar, "number", function(v)
+    msfs_variable_subscribe(lvar, "number", function(v)
       if v == 0 then
         v = .1
       else

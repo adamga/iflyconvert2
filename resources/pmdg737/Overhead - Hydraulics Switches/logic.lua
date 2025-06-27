@@ -234,7 +234,7 @@ function cbSwitchHydAPumpEng1(switch, dir)
   else
     currentHydAPumpEng1Position = math.max(currentHydAPumpEng1Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_ENG_1_HYD_SW_VAL", "number", currentHydAPumpEng1Position)
+  msfs_variable_write("L:VC_ENG_1_HYD_SW_VAL", "number", currentHydAPumpEng1Position)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -243,7 +243,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_ENG_1_HYD_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_ENG_1_HYD_SW_VAL", "number", function(v)
   currentHydAPumpEng1Position = v
   SetSwitchPosition(gSwitchHydAPumpEng1, math.floor(v/10)+1)
 end)
@@ -271,7 +271,7 @@ function cbSwitchHydAPumpElec2(switch, dir)
   else
     currentHydAPumpElec2Position = math.max(currentHydAPumpElec2Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_ELEC_2_HYD_SW_VAL", "number", currentHydAPumpElec2Position)
+  msfs_variable_write("L:VC_ELEC_2_HYD_SW_VAL", "number", currentHydAPumpElec2Position)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -280,7 +280,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_ELEC_2_HYD_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_ELEC_2_HYD_SW_VAL", "number", function(v)
   currentHydAPumpElec2Position = v
   SetSwitchPosition(gSwitchHydAPumpElec2, math.floor(v/10)+1)
 end)
@@ -308,7 +308,7 @@ function cbSwitchHydBPumpElec1(switch, dir)
   else
     currentHydBPumpElec1Position = math.max(currentHydBPumpElec1Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_ELEC_1_HYD_SW_VAL", "number", currentHydBPumpElec1Position)
+  msfs_variable_write("L:VC_ELEC_1_HYD_SW_VAL", "number", currentHydBPumpElec1Position)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -317,7 +317,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_ELEC_1_HYD_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_ELEC_1_HYD_SW_VAL", "number", function(v)
   currentHydBPumpElec1Position = v
   SetSwitchPosition(gSwitchHydBPumpElec1, math.floor(v/10)+1)
 end)
@@ -345,7 +345,7 @@ function cbSwitchHydBPumpEng2(switch, dir)
   else
     currentHydBPumpEng2Position = math.max(currentHydBPumpEng2Position - 10, 0)
   end
-  fs2020_variable_write("L:VC_ENG_2_HYD_SW_VAL", "number", currentHydBPumpEng2Position)
+  msfs_variable_write("L:VC_ENG_2_HYD_SW_VAL", "number", currentHydBPumpEng2Position)
 end
 
 -- ================ ORIGINAL PMDG CODE (COMMENTED OUT) ================
@@ -354,7 +354,7 @@ end
 -- end)
 
 -- ================ CONVERTED iFLY CODE ================
-fs2020_variable_subscribe("L:VC_ENG_2_HYD_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_ENG_2_HYD_SW_VAL", "number", function(v)
   currentHydBPumpEng2Position = v
   SetSwitchPosition(gSwitchHydBPumpEng2, math.floor(v/10)+1)
 end)
@@ -491,7 +491,7 @@ function AddLight(lvar, img, x, y, text1, text2)
     -- end)
     
     -- ================ CONVERTED iFLY CODE ================
-    fs2020_variable_subscribe(lvar, "number", function(v)
+    msfs_variable_subscribe(lvar, "number", function(v)
       if v == 0 then
         v = .1
       else

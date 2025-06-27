@@ -144,13 +144,13 @@ local gSwitchLogoLight
 
 function cbSwitchLogoLight(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Logo_Light_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Logo_Light_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Logo_Light_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Logo_Light_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Logo_Light_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Logo_Light_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchLogoLight, 1) -- OFF position
   else
@@ -179,13 +179,13 @@ local gSwitchPositionLight
 
 function cbSwitchPositionLight(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Position_Light_SW_VAL", "number", 20)
+    msfs_variable_write("L:VC_Position_Light_SW_VAL", "number", 20)
   else
-    fs2020_variable_write("L:VC_Position_Light_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Position_Light_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Position_Light_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Position_Light_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchPositionLight, 1) -- STEADY position
   elseif v == 10 then
@@ -216,13 +216,13 @@ local gSwitchAntiCollisionLight
 
 function cbSwitchAntiCollisionLight(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Beacon_Light_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Beacon_Light_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Beacon_Light_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Beacon_Light_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Beacon_Light_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Beacon_Light_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchAntiCollisionLight, 1) -- OFF position
   else
@@ -251,13 +251,13 @@ local gSwitchWingLight
 
 function cbSwitchWingLight(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Wing_Light_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Wing_Light_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Wing_Light_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Wing_Light_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Wing_Light_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Wing_Light_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchWingLight, 1) -- OFF position
   else
@@ -288,13 +288,13 @@ local gSwitchWheelWell
 
 function cbSwitchWheelWell(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Wheel_Well_Light_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Wheel_Well_Light_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Wheel_Well_Light_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Wheel_Well_Light_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Wheel_Well_Light_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Wheel_Well_Light_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchWheelWell, 1) -- OFF position
   else

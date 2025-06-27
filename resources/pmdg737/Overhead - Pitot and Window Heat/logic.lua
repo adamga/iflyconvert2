@@ -137,13 +137,13 @@ local gSwitchWindowHeatLeftSide
 
 function cbSwitchWindowHeatLeftSide(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Window_Heat_1_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Window_Heat_1_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Window_Heat_1_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Window_Heat_1_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Window_Heat_1_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Window_Heat_1_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchWindowHeatLeftSide, 1) -- OFF position
   else
@@ -172,13 +172,13 @@ local gSwitchWindowHeatLeftFwd
 
 function cbSwitchWindowHeatLeftFwd(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Window_Heat_2_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Window_Heat_2_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Window_Heat_2_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Window_Heat_2_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Window_Heat_2_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Window_Heat_2_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchWindowHeatLeftFwd, 1) -- OFF position
   else
@@ -209,15 +209,15 @@ local gSwitchWindowHeatTest
 
 function cbSwitchWindowHeatTest(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 20)
-    timer_start(300, 300, 1, function() fs2020_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 10) end) -- spring back
+    msfs_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 20)
+    timer_start(300, 300, 1, function() msfs_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 10) end) -- spring back
   else
-    fs2020_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 0)
-    timer_start(300, 300, 1, function() fs2020_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 10) end)
+    msfs_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 0)
+    timer_start(300, 300, 1, function() msfs_variable_write("L:VC_Window_Heat_Test_SW_VAL", "number", 10) end)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Window_Heat_Test_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Window_Heat_Test_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchWindowHeatTest, 1) -- OVHT position
   elseif v == 10 then
@@ -248,13 +248,13 @@ local gSwitchWindowHeatRightFwd
 
 function cbSwitchWindowHeatRightFwd(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Window_Heat_3_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Window_Heat_3_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Window_Heat_3_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Window_Heat_3_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Window_Heat_3_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Window_Heat_3_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchWindowHeatRightFwd, 1) -- OFF position
   else
@@ -289,13 +289,13 @@ local gSwitchWindowHeatRightSide
 
 function cbSwitchWindowHeatRightSide(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Window_Heat_4_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Window_Heat_4_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Window_Heat_4_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Window_Heat_4_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Window_Heat_4_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Window_Heat_4_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchWindowHeatRightSide, 1) -- OFF position
   else
@@ -324,13 +324,13 @@ local gSwitchProbeHeatA
 
 function cbSwitchProbeHeatA(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Probe_Heat_1_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Probe_Heat_1_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Probe_Heat_1_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Probe_Heat_1_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Probe_Heat_1_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Probe_Heat_1_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchProbeHeatA, 1) -- OFF position
   else
@@ -359,13 +359,13 @@ local gSwitchProbeHeatB
 
 function cbSwitchProbeHeatB(switch, dir)
   if dir > 0 then
-    fs2020_variable_write("L:VC_Probe_Heat_2_SW_VAL", "number", 10)
+    msfs_variable_write("L:VC_Probe_Heat_2_SW_VAL", "number", 10)
   else
-    fs2020_variable_write("L:VC_Probe_Heat_2_SW_VAL", "number", 0)
+    msfs_variable_write("L:VC_Probe_Heat_2_SW_VAL", "number", 0)
   end
 end
 
-fs2020_variable_subscribe("L:VC_Probe_Heat_2_SW_VAL", "number", function(v)
+msfs_variable_subscribe("L:VC_Probe_Heat_2_SW_VAL", "number", function(v)
   if v == 0 then
     SetSwitchPosition(gSwitchProbeHeatB, 1) -- OFF position
   else
