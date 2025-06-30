@@ -1,5 +1,10 @@
 This repo takes the Air Manager Overhead instruments for the PMDG 737 700 created originally by Detlef von Reusner, and has the converted lua code to work with the iFly 737 Max 8...
 
+**UPDATES**
+- Some controls do not "trigger" the appropriate actions, particularly things like apu start, etc... it seems there are "double-click" like activities or some other trigger happening in the plane itself... will need further investigation. However, still useful for things like lights
+***********
+
+
 I've included all of the code that was used, including:
 
 -iflymax8lvars-vcs.txt :  this is a list of the lvars from the MAX8 gathered using FSUIPC 7 ( Addons->WASM->List LVars)
