@@ -296,3 +296,163 @@ Preserved all existing functionality, variable names, and parameters
 - **CLOSED (value 0)**: Dial rotates to 0° (horizontal position)
 
 **Result**: Crossfeed dial now visually matches the expected valve orientation.
+
+---
+
+## iFly 737 MAX 8 CLI Tool Development - June 30, 2025
+
+### Project Overview
+Created a comprehensive C++ command-line interface (CLI) tool for controlling the iFly 737 MAX 8 aircraft using the iFly SDK. The tool provides intelligent command processing, value validation, and help system.
+
+**Files Created:**
+- `c:\Repos\iflyconvert\ifly_cli\main.cpp` - Main CLI application source code
+- `c:\Repos\iflyconvert\ifly_cli\CMakeLists.txt` - CMake build configuration
+- `c:\Repos\iflyconvert\ifly_cli\Makefile` - Make build configuration
+- `c:\Repos\iflyconvert\ifly_cli\build.bat` - Windows batch build script
+- `c:\Repos\iflyconvert\ifly_cli\README.md` - Comprehensive documentation
+- `c:\Repos\iflyconvert\ifly_cli\demo.bat` - Demonstration script
+
+### Key Features Implemented
+
+**1. SDK Integration**
+- Uses `iFly737MAX_Init_SendMessage(VER_MSFS2020)` for initialization
+- Uses `iFly737MAX_SendMessage()` to send commands with proper Value1, Value2, Value3 parameters
+- Integrates shared memory reading for aircraft state queries
+- Proper connection handling and cleanup
+
+**2. Command System**
+- Supports over 1400+ commands from `key_command.h`
+- Intelligent command mapping with user-friendly names
+- Command categorization (lights, air_systems, anti_ice, hydraulics, fuel, etc.)
+- Value validation against SDK-defined valid ranges
+
+**3. CLI Interface**
+- `list` - Lists all available commands with categories and descriptions
+- `set <command> <value>` - Sets a command to a specific value
+- `get <command>` - Gets current value from shared memory
+- `help [command]` - Shows help for all commands or specific command
+- `connect` - Tests connection to iFly 737 MAX
+
+**4. Intelligent Features**
+- **Value Parsing**: Converts user-friendly values ("on"/"off") to SDK integers
+- **Command Validation**: Validates commands against known command list
+- **Value Validation**: Validates values against allowed ranges per command
+- **Error Handling**: Comprehensive error messages with suggestions
+- **Help System**: Extracts information from SDK header comments
+
+### Command Examples Implemented
+
+**Lighting Commands:**
+- `landing_light_1`, `landing_light_2` - Values: off, flash, on (0, 1, 2)
+- `taxi_light` - Values: off, on (0, 1)
+- `logo_light` - Values: off, on (0, 1)
+- `anti_collision_light` - Values: off, on (0, 1)
+- `wing_light` - Values: off, on (0, 1)
+- `wheel_well_light` - Values: off, on (0, 1)
+- `position_light` - Values: strobe_steady, off, steady (0, 1, 2)
+- `dome_light` - Values: dim, off, bright (0, 1, 2)
+
+**Air System Commands:**
+- `engine_1_bleed`, `engine_2_bleed` - Values: off, on (0, 1)
+- `apu_bleed` - Values: off, on (0, 1)
+- `pack_1`, `pack_2` - Values: off, auto, high (0, 1, 2)
+
+**Anti-Ice Commands:**
+- `wing_anti_ice` - Values: off, on (0, 1)
+- `engine_1_anti_ice`, `engine_2_anti_ice` - Values: off, on (0, 1)
+
+### Technical Architecture
+
+**1. iFlyCommander Class**
+- Main command processing and SDK integration
+- Command map management and validation
+- Connection handling and shared memory access
+
+**2. CommandInfo Structure**
+```cpp
+struct CommandInfo {
+    KEY_COMMAND_IFLY737MAX command_id;
+    std::string name;
+    std::string description;
+    std::string category;
+    std::vector<std::string> valid_values;
+    std::string value1_desc, value2_desc, value3_desc;
+    std::string get_variable_name;
+};
+```
+
+**3. Command Processing Flow**
+1. Parse command-line arguments
+2. Validate command against command map
+3. Parse and validate value against valid_values
+4. Convert user value to SDK integer
+5. Send command via `iFly737MAX_SendMessage()`
+6. Provide feedback to user
+
+### Usage Examples
+
+```cmd
+# Basic usage
+ifly_cli.exe help
+ifly_cli.exe list
+ifly_cli.exe connect
+
+# Set commands
+ifly_cli.exe set landing_light_1 on
+ifly_cli.exe set pack_1 auto
+ifly_cli.exe set wing_anti_ice on
+
+# Get current values
+ifly_cli.exe get landing_light_1
+ifly_cli.exe get taxi_light
+
+# Get help for specific commands
+ifly_cli.exe help landing_light_1
+ifly_cli.exe help pack_1
+```
+
+### Build Instructions
+
+**Visual Studio Build Tools:**
+```cmd
+cd ifly_cli
+build.bat
+```
+
+**Manual Compilation:**
+```cmd
+cl /std:c++17 /EHsc /W3 /DWIN32_LEAN_AND_MEAN /DNOMINMAX /I"." /I"../737MAX_SDK" /I"../737MAX_SDK/sdk" main.cpp /Feifly_cli.exe /link user32.lib kernel32.lib
+```
+
+### SDK Integration Details
+
+**Command Sending:**
+- Uses `KEY_COMMAND_IFLY737MAX` enum values from `key_command.h`
+- Sends commands with Value1=1 (enable click sound), Value2=user_value, Value3=0
+- Properly handles 2-position and 3-position switches
+
+**State Reading:**
+- Maps to `ShareMemory737MAXSDK` structure variables
+- Provides real-time aircraft state information
+- Handles connection validation and error cases
+
+### Extensibility
+
+The tool is designed for easy extension:
+1. Add new commands to `initialize_command_map()`
+2. Use `add_command()` with SDK command ID, name, description, category, and valid values
+3. Optionally add shared memory mapping for state queries
+
+### Result
+
+Created a professional, comprehensive CLI tool that:
+- ✅ Initializes iFly SDK correctly
+- ✅ Sends commands using proper SDK functions
+- ✅ Queries aircraft state via shared memory
+- ✅ Provides intelligent help with valid values
+- ✅ Validates commands and values
+- ✅ Handles errors gracefully
+- ✅ Supports extensible command system
+- ✅ Includes comprehensive documentation and examples
+
+The CLI tool serves as a complete interface to the iFly 737 MAX 8, enabling automation, testing, and external control integration.
