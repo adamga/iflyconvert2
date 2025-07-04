@@ -1,0 +1,53 @@
+# Ignore Visual Studio folder
+.vs/
+
+# Ignore build output
+ifly_cli/ifly_cli.exe
+ifly_cli/*.obj
+ifly_cli/*.pdb
+ifly_cli/*.ilk
+ifly_cli/bin/
+737MAX_SDK/.vs/
+
+
+# Ignore CMake and Make build folders
+ifly_cli/build/
+ifly_cli/CMakeFiles/
+ifly_cli/Makefile
+ifly_cli/CMakeCache.txt
+ifly_cli/cmake_install.cmake
+
+# Ignore user/project settings
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+*.log
+*.tlog
+*.ipch
+*.opensdf
+*.sdf
+*.cache
+*.db
+*.pyc
+__pycache__/
+
+# Ignore backup files
+*~
+*.bak
+*.swp
+*.tmp
+737MAX_SDK/737MAX_SDK/x64/Release/vc143.pdb
+737MAX_SDK/737MAX_SDK/x64/Release/pch.obj
+737MAX_SDK/737MAX_SDK/x64/Release/My737MAXSDK.res
+737MAX_SDK/737MAX_SDK/x64/Release/737MAX_SDKDlg.obj
+737MAX_SDK/737MAX_SDK/x64/Release/737MAX_SDK.vcxproj.FileListAbsolute.txt
+737MAX_SDK/737MAX_SDK/x64/Release/737MAX_SDK.pch
+737MAX_SDK/737MAX_SDK/x64/Release/737MAX_SDK.obj
+737MAX_SDK/737MAX_SDK/x64/Release/737MAX_SDK.ipdb
+737MAX_SDK/737MAX_SDK/x64/Release/737MAX_SDK.iobj
+737MAX_SDK/737MAX_SDK/x64/Release/737MAX_SDK.exe.recipe
+737MAX_SDK/res/My737MAXSDK.rc2
+737MAX_SDK/res/737MAX_SDK.ico
+737MAX_SDK/x64/Release/737MAX_SDK.exe
+737MAX_SDK/x64/Release/737MAX_SDK.pdb
