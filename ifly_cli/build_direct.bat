@@ -3,7 +3,7 @@ REM Direct build script for iFly CLI - bypasses environment checks
 echo Building iFly CLI Tool...
 echo Compiling...
 
-cl /std:c++17 /EHsc /W3 /DWIN32_LEAN_AND_MEAN /DNOMINMAX /I"." /I"../737MAX_SDK" /I"../737MAX_SDK/sdk" main.cpp /Feifly_cli.exe /link user32.lib kernel32.lib
+cl /std:c++17 /EHsc /W3 /DWIN32_LEAN_AND_MEAN /DNOMINMAX /I"." /I"../737MAX_SDK" /I"../737MAX_SDK/sdk" main.cpp linenoise.cpp ConvertUTF.cpp wcwidth.cpp /Feifly_cli.exe /link user32.lib kernel32.lib
 
 if %errorlevel% neq 0 (
     echo Build failed! Please ensure you're running from a Visual Studio Developer Command Prompt.

@@ -32,62 +32,64 @@
 #include "../737MAX_SDK/sdk/key_command.h"
 #include "../737MAX_SDK/sdk/SDK_Defines.h"
 
+#include "commands/general.cpp"
+#include "commands/lights.cpp"
+#include "commands/air_systems.cpp"
+#include "commands/anti_ice.cpp"
+#include "commands/apu.cpp"
+#include "commands/annunciators.cpp"
+#include "commands/command_info.h"
+#include "commands/automatic_flight.cpp" // Include automatic flight commands
+#include "commands/electrical.cpp"
+#include "commands/engapu.cpp"
+#include "commands/fuel.cpp"
+#include "commands/hydraulic.cpp"
+#include "commands/fltctrl.cpp"
+#include "commands/warning.cpp"
+#include "commands/communication.cpp"
+#include "commands/fire.cpp"
+#include "commands/fms.cpp"
+#include "commands/gear.cpp"
+#include "commands/instrument.cpp"
+
+
 // Forward declarations
 class iFlyCommander;
-struct CommandInfo;
 
 // Global variables (avoid conflicts with SDK static variables)
 ShareMemory737MAXSDK* g_pShareMem737MAXSDK = new ShareMemory737MAXSDK;
 HANDLE g_hMapFile737MAXSDK = nullptr;
 LPCTSTR g_pBuf737MAXSDK = nullptr;
 
-// Command structure to hold information about each command
-struct CommandInfo {
-    KEY_COMMAND_IFLY737MAX command_id;
-    std::string name;
-    std::string description;
-    std::string category;
-    std::vector<std::string> valid_values;
-    std::string value1_desc;
-    std::string value2_desc;
-    std::string value3_desc;
-    std::string get_variable_name; // For reading current state from shared memory
-};
+// Remove any redefinition of szName737MAXSDK here
 
 class iFlyCommander {
-private:
-    std::map<std::string, CommandInfo> command_map;
-    bool is_connected = false;
-    
 public:
     iFlyCommander();
     ~iFlyCommander();
-    
     bool initialize();
     bool connect_to_ifly();
     void disconnect();
-    
     bool send_command(const std::string& command_name, const std::string& value);
     std::string get_command_value(const std::string& command_name);
-    
     void list_commands();
     void list_commands_by_category(const std::string& category);
     void show_help(const std::string& command_name = "");
-    
     bool parse_and_execute(int argc, char* argv[]);
-    
+    std::vector<std::string> split_string(const std::string& str, char delimiter);
+    void print_usage();
+
 private:
+    std::map<std::string, CommandInfo> command_map;
+    bool is_connected = false;
     void initialize_command_map();
     void add_command(KEY_COMMAND_IFLY737MAX cmd_id, const std::string& name, 
                     const std::string& description, const std::string& category,
                     const std::vector<std::string>& valid_values,
                     const std::string& value1_desc = "", const std::string& value2_desc = "",
                     const std::string& value3_desc = "", const std::string& get_var = "");
-    
     std::string to_lower(const std::string& str);
-    std::vector<std::string> split_string(const std::string& str, char delimiter);
     int parse_value_to_int(const std::string& value, const std::vector<std::string>& valid_values);
-    void print_usage();
 };
 
 iFlyCommander::iFlyCommander() {
@@ -106,7 +108,10 @@ bool iFlyCommander::initialize() {
 
 bool iFlyCommander::connect_to_ifly() {
     // Open the shared memory file mapping
-    g_hMapFile737MAXSDK = OpenFileMapping(FILE_MAP_READ, FALSE, szName737MAXSDK);
+    // Convert wide string szName737MAXSDK to narrow string for ANSI API
+    char narrow_szName737MAXSDK[256];
+    WideCharToMultiByte(CP_ACP, 0, szName737MAXSDK, -1, narrow_szName737MAXSDK, 256, NULL, NULL);
+    g_hMapFile737MAXSDK = OpenFileMapping(FILE_MAP_READ, FALSE, narrow_szName737MAXSDK);
     
     if (g_hMapFile737MAXSDK != nullptr) {
         g_pBuf737MAXSDK = (LPTSTR)MapViewOfFile(g_hMapFile737MAXSDK, FILE_MAP_READ, 0, 0, BUF_SIZE_737MAXSDK);
@@ -382,114 +387,24 @@ bool iFlyCommander::parse_and_execute(int argc, char* argv[]) {
 }
 
 void iFlyCommander::initialize_command_map() {
-    // Initialize with the most commonly used commands
-    // General/Lighting Commands
-    add_command(KEY_COMMAND_GENERAL_LANDING_LIGHT_1_SET, "landing_light_1", 
-                "Left Landing Light Switch", "lights", 
-                {"off", "flash", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch FLASH; 2:switch ON");
-                
-    add_command(KEY_COMMAND_GENERAL_LANDING_LIGHT_2_SET, "landing_light_2", 
-                "Right Landing Light Switch", "lights", 
-                {"off", "flash", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch FLASH; 2:switch ON");
-                
-    add_command(KEY_COMMAND_GENERAL_TAXI_LIGHT_SET, "taxi_light", 
-                "Taxi Light Switch", "lights", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_GENERAL_LOGO_LIGHT_SET, "logo_light", 
-                "Logo Light Switch", "lights", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_GENERAL_ANTI_COLLISION_LIGHT_SET, "anti_collision_light", 
-                "Anti-Collision Light Switch", "lights", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_GENERAL_WING_LIGHT_SET, "wing_light", 
-                "Wing Illumination Switch", "lights", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_GENERAL_WHEEL_WELL_LIGHT_SET, "wheel_well_light", 
-                "Wheel Well Light Switch", "lights", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_GENERAL_POSITION_LIGHT_SET, "position_light", 
-                "Position Light Switch", "lights", 
-                {"strobe_steady", "off", "steady"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch STROBE&STEADY; 1:switch OFF; 2:switch STEADY");
-                
-    add_command(KEY_COMMAND_GENERAL_DOME_LIGHT_SET, "dome_light", 
-                "Dome Light Switch", "lights", 
-                {"dim", "off", "bright"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch DIM; 1:switch OFF; 2:switch BRIGHT",
-                "1: ignore the guard, press the button directly");
-                
-    // Air System Commands
-    add_command(KEY_COMMAND_AIRSYSTEM_ENG_1_BLEED_SET, "engine_1_bleed", 
-                "Engine 1 Bleed Air Switch", "air_systems", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_AIRSYSTEM_ENG_2_BLEED_SET, "engine_2_bleed", 
-                "Engine 2 Bleed Air Switch", "air_systems", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_AIRSYSTEM_APU_BLEED_SET, "apu_bleed", 
-                "APU Bleed Air Switch", "air_systems", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_AIRSYSTEM_PACK_1_SET, "pack_1", 
-                "Left Air Conditioning Pack Switch", "air_systems", 
-                {"off", "auto", "high"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch AUTO; 2:switch HIGH");
-                
-    add_command(KEY_COMMAND_AIRSYSTEM_PACK_2_SET, "pack_2", 
-                "Right Air Conditioning Pack Switch", "air_systems", 
-                {"off", "auto", "high"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch AUTO; 2:switch HIGH");
-                
-    // Anti-Ice Commands
-    add_command(KEY_COMMAND_ANTIICE_WING_SET, "wing_anti_ice", 
-                "Wing Anti-Ice Switch", "anti_ice", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_ANTIICE_ENG_1_SET, "engine_1_anti_ice", 
-                "Engine 1 Anti-Ice Switch", "anti_ice", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-                
-    add_command(KEY_COMMAND_ANTIICE_ENG_2_SET, "engine_2_anti_ice", 
-                "Engine 2 Anti-Ice Switch", "anti_ice", 
-                {"off", "on"}, 
-                "0: OFF the click sound; 1: ON the click sound",
-                "0:switch OFF; 1:switch ON");
-    
-    // Add more commands as needed - this is a good starting set
+    initialize_general_commands(&command_map);
+    initialize_annunciators_commands(&command_map);
+    initialize_lights_commands(&command_map);
+    initialize_air_systems_commands(&command_map);
+    initialize_anti_ice_commands(&command_map);
+    initialize_apu_commands(&command_map);
+    initialize_automatic_flight_commands(&command_map);
+    initialize_communication_commands(&command_map);
+    initialize_electrical_commands(&command_map);
+    initialize_engapu_commands(&command_map);
+    initialize_fire_commands(&command_map);
+    initialize_fltctrl_commands(&command_map);
+    initialize_fms_commands(&command_map);
+    initialize_fuel_commands(&command_map);
+    initialize_gear_commands(&command_map);
+    initialize_hydraulic_commands(&command_map);
+    initialize_instrument_commands(&command_map);
+    initialize_warning_commands(&command_map);
 }
 
 void iFlyCommander::add_command(KEY_COMMAND_IFLY737MAX cmd_id, const std::string& name, 
@@ -568,18 +483,26 @@ void iFlyCommander::print_usage() {
     std::cout << "  ifly_cli.exe help landing_light_1" << std::endl;
 }
 
+// Ensure command_map is correctly defined
+// std::map<std::string, CommandInfo> command_map; // REMOVE: now a member of iFlyCommander
+
 // Main function
+
+
 int main(int argc, char* argv[]) {
     iFlyCommander commander;
-    
     if (!commander.initialize()) {
         std::cout << "Error: Failed to initialize iFly SDK" << std::endl;
         return 1;
     }
-    
-    if (!commander.parse_and_execute(argc, argv)) {
+
+    // Only command-line mode: require arguments
+    if (argc > 1) {
+        commander.parse_and_execute(argc, argv);
+        return 0;
+    } else {
+        std::cout << "No command provided. Usage:\n";
+        commander.print_usage();
         return 1;
     }
-    
-    return 0;
 }
