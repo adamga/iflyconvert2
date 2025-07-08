@@ -79,6 +79,11 @@ public:
     std::vector<std::string> split_string(const std::string& str, char delimiter);
     void print_usage();
 
+    // Expose all command names for DLL/FFI
+    std::vector<std::string> get_all_command_names() const;
+// Implementation of get_all_command_names (outside class)
+
+
 private:
     std::map<std::string, CommandInfo> command_map;
     bool is_connected = false;
@@ -505,4 +510,13 @@ int main(int argc, char* argv[]) {
         commander.print_usage();
         return 1;
     }
+}
+
+// Implementation of get_all_command_names (for DLL/FFI)
+std::vector<std::string> iFlyCommander::get_all_command_names() const {
+    std::vector<std::string> names;
+    for (const auto& pair : command_map) {
+        names.push_back(pair.first);
+    }
+    return names;
 }
