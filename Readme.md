@@ -66,6 +66,8 @@ dll.ifly_list_commands(list_buf, 4096)
 print(ffi.string(list_buf))
 ```
 
+A sample Lua script for FSUIPC integration is provided in `FSUIPC/iflycli_sample.lua`. This script demonstrates how to load and call the DLL from FSUIPC Lua using LuaJIT FFI, including setting, getting, and listing commands. See that file for a ready-to-use example.
+
 - The DLL must be accessible to FSUIPC/Lua (usually in the Modules folder).
 - Function names are exported as C symbols (no C++ name mangling).
 - You can use these functions from any language that supports loading C DLLs.
