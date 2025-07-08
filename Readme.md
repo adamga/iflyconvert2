@@ -27,4 +27,47 @@ I've also included an export of all of the instruments in a `ifly737max8oh.siff`
 
 There is a subproject in this solution, used for testing, that implements an iFly CLI. This CLI can be used for getting and setting the KEY_COMMANDS (when supported by the sim/SDK). See the `ifly_cli` folder for details, usage, and build instructions. The CLI is robust, command-line only, and supports listing, setting, and querying all mapped KEY_COMMANDS.
 
+**Subproject: iFly CLI DLL**
+
+A C++ DLL (`iflycli_dll`) is included that exposes a C API for setting, getting, and listing iFly 737 MAX 8 commands. This DLL is designed for integration with Lua scripts via FFI, FSUIPC, or any other environment that can load standard C DLLs.
+
+- See the `dll` folder for source and build instructions.
+- The DLL exports three main functions:
+  - `int ifly_set_command(const char* command, const char* value);`
+  - `int ifly_get_command(const char* command, char* out_value, int out_value_len);`
+  - `int ifly_list_commands(char* out_buf, int buf_len);`
+- All functions return 0 on success, nonzero on error.
+
+**Using the DLL with FSUIPC Lua**
+
+You can call the DLL directly from FSUIPC Lua scripts using LuaJIT FFI. Place `iflycli_dll.dll` in your FSUIPC `Modules` folder or the same directory as your Lua script.
+
+Example Lua script for FSUIPC:
+
+```lua
+local ffi = require("ffi")
+
+ffi.cdef[[
+    int ifly_set_command(const char* command, const char* value);
+    int ifly_get_command(const char* command, char* out_value, int out_value_len);
+    int ifly_list_commands(char* out_buf, int buf_len);
+]]
+
+local dll = ffi.load("iflycli_dll")
+
+dll.ifly_set_command("landing_light_1", "on")
+
+local buf = ffi.new("char[64]")
+dll.ifly_get_command("landing_light_1", buf, 64)
+print(ffi.string(buf))
+
+local list_buf = ffi.new("char[4096]")
+dll.ifly_list_commands(list_buf, 4096)
+print(ffi.string(list_buf))
+```
+
+- The DLL must be accessible to FSUIPC/Lua (usually in the Modules folder).
+- Function names are exported as C symbols (no C++ name mangling).
+- You can use these functions from any language that supports loading C DLLs.
+
 None of this is absolutely perfect, but feel free to take this further if you'd like. I did this as an experiment for my own use, and thought I'd share.
